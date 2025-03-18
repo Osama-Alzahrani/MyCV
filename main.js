@@ -1,151 +1,404 @@
 import * as THREE from "three";
-import * as TWEEN from "tween";
-import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
-import { OrbitControls } from "three/addons/controls/OrbitControls.js";
-import {
-  CSS3DRenderer,
-  CSS3DObject,
-} from "three/addons/renderers/CSS3DRenderer.js";
+import { init } from "./public/js/apps/app.js";
+import { Camera } from "./public/js/apps/camera.js";
+import { createMonitor } from "./public/js/apps/Monitor.js";
+import { controls } from "./public/js/apps/controller.js";
+import { createScene } from "./public/js/apps/scene.js";
 
-const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(
-  75,
-  window.innerWidth / window.innerHeight,
+import { Tween, Group, Easing } from "@tweenjs/tween.js";
+
+import { EffectComposer } from "three/addons/postprocessing/EffectComposer.js";
+import { RenderPass } from "three/addons/postprocessing/RenderPass.js";
+import { UnrealBloomPass } from "three/addons/postprocessing/UnrealBloomPass.js";
+import { OutputPass } from "three/addons/postprocessing/OutputPass.js";
+import { ShaderPass } from "three/addons/postprocessing/ShaderPass.js";
+
+const app = init({ antialias: true });
+const camera = Camera(new THREE.Vector3(0, 300, 200));
+const controller = controls(camera.camera, app.renderer, {
+  maxDistance: 1300,
+  minDistance: 0.1,
+});
+const monitor = createMonitor(app.scene, {
+  scale: new THREE.Vector3(0.1, 0.1, 1),
+});
+const scene = createScene(app.scene, monitor);
+controller.control.target.set(0, 300, 10);
+console.log(controller.control);
+
+const params = {
+  threshold: 0,
+  strength: 0.2,
+  radius: 0.5,
+  exposure: 0.1,
+  // light
+  deskLight: true,
+  // camera
+  cameraRadius: 700,
+  cameraAngle: 0,
+  cameraSpeed: 0.005,
+  // computer
+  computerActive: false,
+};
+
+const renderScene = new RenderPass(app.scene, camera.camera);
+
+const bloomPass = new UnrealBloomPass(
+  new THREE.Vector2(window.innerWidth, window.innerHeight),
   0.1,
-  1000
+  0.1,
+  0.1
+);
+bloomPass.threshold = params.threshold;
+bloomPass.strength = params.strength;
+bloomPass.radius = params.radius;
+
+const bloomComposer = new EffectComposer(app.renderer);
+bloomComposer.addPass(renderScene);
+bloomComposer.addPass(bloomPass);
+bloomComposer.renderToScreen = false;
+
+const mixPass = new ShaderPass(
+  new THREE.ShaderMaterial({
+    uniforms: {
+      baseTexture: { value: null },
+      bloomTexture: { value: bloomComposer.renderTarget2.texture },
+    },
+    vertexShader: document.getElementById("vertexshader").textContent,
+    fragmentShader: document.getElementById("fragmentshader").textContent,
+  }),
+  "baseTexture"
 );
 
-const renderer = new THREE.WebGLRenderer();
-renderer.setSize(window.innerWidth, window.innerHeight);
-renderer.setAnimationLoop(animate);
-// renderer.setClearColor(0x87ceeb); // Light blue background
-document.body.appendChild(renderer.domElement);
+const finalComposer = new EffectComposer(app.renderer);
+finalComposer.addPass(renderScene);
+finalComposer.addPass(mixPass);
 
-renderer.shadowMap.enabled = true;
-renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+const outputPass = new OutputPass();
+finalComposer.addPass(outputPass);
 
-// Change background Color:
-// renderer.setClearColor(0xf2f0ef);
+const raycaster = new THREE.Raycaster();
+const mouse = new THREE.Vector2();
 
-//Lighting in the scene
-// Ambient light: Provides uniform lighting to the scene
-// const ambientLight = new THREE.AmbientLight(0xffffff, 0.2); // White light, 50% intensity
-// scene.add(ambientLight);
+window.addEventListener("resize", onWindowResize);
 
-// // Directional light: Acts like a sun, casting light in a specific direction
-// const directionalLight = new THREE.DirectionalLight(0xffffff, 1); // White light, full intensity
-// directionalLight.position.set(0, 2, 0); // Set the position of the light
-// scene.add(directionalLight);
+function onWindowResize() {
+  camera.camera.aspect = window.innerWidth / window.innerHeight;
+  camera.camera.updateProjectionMatrix();
 
-// Add SpotLight in the middle of the scene
-// Spotlight Setup
-//Create a SpotLight and turn on shadows for the light
-const spotLight = new THREE.SpotLight(0xffffff, 20); // Intensity set to 5 for stronger light
-spotLight.position.set(0, 35, 0); // Above the room center
-spotLight.angle = Math.PI / 4; // Wider cone (60 degrees)
-spotLight.penumbra = 0.5; // Softer edges
-spotLight.decay = 1; // Slower falloff
-spotLight.distance = 150; // Larger range
+  app.renderer.setSize(window.innerWidth, window.innerHeight);
+  monitor.CSSRenderer.setSize(window.innerWidth, window.innerHeight);
 
-// Enable shadows
-spotLight.castShadow = true;
-spotLight.shadow.mapSize.width = 2048; // High-resolution shadow maps
-spotLight.shadow.mapSize.height = 2048;
-spotLight.shadow.camera.near = 1;
-spotLight.shadow.camera.far = 150;
-
-// Add to scene
-scene.add(spotLight);
-
-// Target the spotlight
-spotLight.target.position.set(0, 0, 0);
-scene.add(spotLight.target);
-
-// Optional: Add a helper to visualize the spotlight
-const spotLightHelper = new THREE.SpotLightHelper(spotLight);
-scene.add(spotLightHelper);
-
-// Geomatry
-let room = [];
-const ROOM_SIZE = [50, 2, 50];
-
-function showcaseBuilder() {
-  // Ground
-  const groundGeometry = new THREE.BoxGeometry(
-    ROOM_SIZE[0],
-    ROOM_SIZE[1],
-    ROOM_SIZE[2]
-  );
-  const DarkMaterial = new THREE.MeshStandardMaterial({
-    color: 0xe0f9ff,
-    roughness: 0.5, // Adjust surface roughness
-    metalness: 0.1, // Non-metallic surface
-  });
-  const ground = new THREE.Mesh(groundGeometry, DarkMaterial);
-  ground.position.set(0, -ROOM_SIZE[1] / 2, 0); // Position ground at the bottom
-  ground.castShadow = true; //default is false
-  ground.receiveShadow = false; //default is false
-  scene.add(ground);
-  room.push(ground);
-
-  // Walls
-  const wallThickness = 1; // Thickness of the walls
-  const wallHeight = 20; // Height of the walls
-
-  // Front Wall
-  const frontWallGeometry = new THREE.BoxGeometry(
-    ROOM_SIZE[0],
-    wallHeight,
-    wallThickness
-  );
-  const frontWall = new THREE.Mesh(frontWallGeometry, DarkMaterial.clone());
-  frontWall.position.set(0, wallHeight / 2, -ROOM_SIZE[2] / 2);
-  scene.add(frontWall);
-  room.push(frontWall);
-
-  // Back Wall
-  const backWall = new THREE.Mesh(frontWallGeometry, DarkMaterial.clone());
-  backWall.position.set(0, wallHeight / 2, ROOM_SIZE[2] / 2);
-  scene.add(backWall);
-  room.push(backWall);
-
-  // Left Wall
-  const leftWallGeometry = new THREE.BoxGeometry(
-    wallThickness,
-    wallHeight,
-    ROOM_SIZE[2]
-  );
-  const leftWall = new THREE.Mesh(leftWallGeometry, DarkMaterial.clone());
-  leftWall.position.set(-ROOM_SIZE[0] / 2, wallHeight / 2, 0);
-  scene.add(leftWall);
-  room.push(leftWall);
-
-  // Right Wall
-  const rightWall = new THREE.Mesh(leftWallGeometry, DarkMaterial.clone());
-  rightWall.position.set(ROOM_SIZE[0] / 2, wallHeight / 2, 0);
-  scene.add(rightWall);
-  room.push(rightWall);
-
-  ground.receiveShadow = true;
-  frontWall.castShadow = true;
-  frontWall.receiveShadow = true;
+  bloomComposer.setSize(window.innerWidth, window.innerHeight);
+  finalComposer.setSize(window.innerWidth, window.innerHeight);
 }
 
-showcaseBuilder();
+let cameraMoving = false;
+let cameraRotating = false;
+let UIClicked = false;
+controller.control.enabled = false;
 
-//OrbitControl
-const controls = new OrbitControls(camera, renderer.domElement);
+const group = new Group();
 
-const shadowCameraHelper = new THREE.CameraHelper(spotLight.shadow.camera);
-scene.add(shadowCameraHelper);
+function smoothCameraTransition(targetPosition, duration = 2000) {
+  if (cameraMoving || params.computerActive) {
+    return;
+  }
 
-camera.position.z = 10;
-camera.position.y = 10;
-controls.update();
+  cameraRotating = false;
+
+  let initialPosition = camera.camera.position.clone();
+
+  controller.control.enabled = false;
+  controller.control.minDistance = 0.1;
+
+  if (camera.camera.position.z < 0) {
+    // alert("Camera" + targetPosition.z);
+
+    new Tween(initialPosition, group)
+      .to(
+        {
+          x: targetPosition.x,
+          y: targetPosition.y + 200,
+          z: targetPosition.z + 50,
+        },
+        duration / 2
+      )
+      .easing(Easing.Quadratic.Out)
+      .onUpdate(() => {
+        camera.camera.position.set(
+          initialPosition.x,
+          initialPosition.y,
+          initialPosition.z
+        );
+        camera.camera.lookAt(
+          targetPosition.x,
+          targetPosition.y,
+          targetPosition.z
+        );
+        controller.control.target.set(
+          targetPosition.x,
+          targetPosition.y,
+          targetPosition.z
+        );
+      })
+      .onComplete(() => {
+        console.log(controller.control);
+        // controller.control.enabled = true;
+        cameraMoving = false;
+        // cameraRotating = true;
+        initialPosition = camera.camera.position.clone();
+        new Tween(initialPosition, group)
+          .to(
+            {
+              x: targetPosition.x,
+              y: targetPosition.y,
+              z: targetPosition.z + 50,
+            },
+            duration / 2
+          )
+          .easing(Easing.Quadratic.Out)
+          .onUpdate(() => {
+            camera.camera.position.set(
+              initialPosition.x,
+              initialPosition.y,
+              initialPosition.z
+            );
+            camera.camera.lookAt(
+              targetPosition.x,
+              targetPosition.y,
+              targetPosition.z
+            );
+            controller.control.target.set(
+              targetPosition.x,
+              targetPosition.y,
+              targetPosition.z
+            );
+          })
+          .onComplete(() => {
+            console.log(controller.control);
+            // controller.control.enabled = true;
+            cameraMoving = false;
+            // cameraRotating = true;
+          })
+          .start();
+      })
+      .start();
+  } else {
+    new Tween(initialPosition, group)
+      .to(
+        { x: targetPosition.x, y: targetPosition.y, z: targetPosition.z + 50 },
+        duration
+      )
+      .easing(Easing.Quadratic.Out)
+      .onUpdate(() => {
+        camera.camera.position.set(
+          initialPosition.x,
+          initialPosition.y,
+          initialPosition.z
+        );
+        camera.camera.lookAt(
+          targetPosition.x,
+          targetPosition.y,
+          targetPosition.z
+        );
+        controller.control.target.set(
+          targetPosition.x,
+          targetPosition.y,
+          targetPosition.z
+        );
+      })
+      .onComplete(() => {
+        console.log(controller.control);
+        // controller.control.enabled = true;
+        cameraMoving = false;
+        // cameraRotating = true;
+      })
+      .start();
+  }
+  cameraMoving = true;
+
+  params.computerActive = true;
+  $("#UI").hide();
+  $("#webgl").css("pointer-events", "none");
+}
+
+let cameraRotationPosition;
+
+function cameraToRotation() {
+  params.computerActive = false;
+  params.cameraAngle = 0;
+  controller.control.minDistance = 0.1;
+  $("#webgl").css("pointer-events", "auto");
+
+  if (cameraMoving) {
+    return;
+  }
+
+  cameraRotating = false;
+
+  const initialPosition = camera.camera.position.clone();
+
+  const duration = initialPosition.distanceTo(new THREE.Vector3(0, 400, 700));
+
+  controller.control.enabled = false;
+
+  new Tween(initialPosition, group)
+    .to({ x: 0, y: 400, z: 700 }, duration)
+    .easing(Easing.Quadratic.Out)
+    .onUpdate(() => {
+      camera.camera.position.set(
+        initialPosition.x,
+        initialPosition.y,
+        initialPosition.z
+      );
+      camera.camera.lookAt(40, 270, -10);
+      controller.control.target.set(40, 270, -10);
+    })
+    .onComplete(() => {
+      cameraMoving = false;
+      cameraRotating = true;
+    })
+    .start();
+  cameraMoving = true;
+}
+
+$("#CameraMode").click(function () {
+  // alert("CLICK")
+
+  cameraRotating = cameraRotating ? false : true;
+  if (cameraRotating) {
+    cameraToRotation();
+    // controller.control.enabled = false;
+  } else {
+    cameraRotationPosition = camera.camera.position.clone();
+    controller.control.enabled = true;
+    controller.control.minDistance = 400;
+  }
+});
+$("#DeskLight").click(function () {
+  // $(this).children().first().removeAttr("type");
+
+  deskLampONOFF();
+});
+$("#UI").click(function () {
+  UIClicked = true;
+});
+
+const darkMaterial = new THREE.MeshBasicMaterial({
+  color: "white",
+  transparent: true,
+  opacity: 0.01,
+});
+let deskLampMaterial;
+
+function deskLampONOFF() {
+  if (params.deskLight) {
+    scene.deskLight.intensity = 0;
+    scene.pointLight.intensity = 0;
+
+    deskLampMaterial = scene.pointLight.children[0].material;
+    scene.pointLight.children[0].material = darkMaterial;
+    params.deskLight = false;
+  } else {
+    scene.deskLight.intensity = 15000;
+    scene.pointLight.intensity = 100;
+
+    scene.pointLight.children[0].material = deskLampMaterial;
+    params.deskLight = true;
+  }
+}
+
+window.addEventListener("click", (event) => {
+  // Convert mouse position to normalized device coordinates (-1 to +1 range)
+  if (UIClicked) {
+    UIClicked = false;
+    return;
+  }
+  mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+  mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+  // Update the raycaster with the camera and mouse position
+  raycaster.setFromCamera(mouse, camera.camera);
+
+  // Calculate intersections
+  const intersects = raycaster.intersectObjects(app.scene.children);
+
+  if (intersects.length > 0) {
+    console.log("Clicked on:", intersects[0].object);
+    let worldPosition = new THREE.Vector3();
+    intersects[0].object.getWorldPosition(worldPosition);
+    // console.log(worldPosition);
+    const objName = intersects[0].object.name;
+    if (objName === "Monitor1" || objName === "Screen") {
+      cameraRotationPosition = camera.camera.position.clone();
+      smoothCameraTransition({ x: 40, y: 270, z: -10 }, 2000);
+    }
+
+    if (
+      objName !== "Monitor1" &&
+      objName !== "Screen" &&
+      params.computerActive
+    ) {
+      $("#UI").show();
+      cameraToRotation();
+    }
+
+    if (intersects[0].object.parent.name === "Desklamp") {
+      deskLampONOFF();
+    }
+  } else {
+    console.log("Clicked on empty space");
+    if (params.computerActive) {
+      cameraToRotation();
+      $("#UI").show();
+    }
+  }
+});
+
+// console.log(Math.sin(params.cameraAngle) * params.cameraRadius);
+// console.log(Math.cos(params.cameraAngle) * params.cameraRadius);
+
+$(document).ready(function () {
+  console.log("ready!");
+});
+
+export function startAnimation() {
+  animate();
+  setTimeout(() => {
+    $("#loading-screen").addClass("fadeout-up-screen");
+    cameraRotating = true;
+  }, 500);
+  // $("#loading-screen").addClass("fadeout-up-screen")
+  // alert("Animation started");
+}
 
 function animate() {
-  // cube.rotation.x += 0.01;
-  // cube.rotation.y += 0.01;
+  requestAnimationFrame(animate);
 
-  renderer.render(scene, camera);
+  if (!scene.isItFinished) {
+    group.update(); // Update the group instead of TWEEN.update()
+
+    controller.control.update();
+    // app.renderer.render( app.scene, camera.camera );
+    monitor.CSSRenderer.render(app.scene, camera.camera);
+    // app.scene.traverse( darkenNonBloomed );
+    bloomComposer.render();
+    // app.scene.traverse( restoreMaterial );
+    finalComposer.render();
+    if (cameraRotating) {
+      // console.log(params.cameraAngle );
+
+      params.cameraAngle += params.cameraSpeed;
+
+      // Camera position (circular path)
+
+      camera.camera.position.x =
+        Math.sin(params.cameraAngle) * params.cameraRadius;
+      camera.camera.position.z =
+        Math.cos(params.cameraAngle) * params.cameraRadius;
+      camera.camera.position.y = 400;
+      // console.log(camera.camera.position);
+    }
+  }
 }

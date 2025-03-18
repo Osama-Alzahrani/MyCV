@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/7.css">
+    <link rel="stylesheet" href="./css/jquery-ui.min.css">
+    <link rel="stylesheet" href="./css/MyWin7.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+    <script src="../public/js/jquery-3.7.1.min.js"></script>
+    <script src="../public/js/jquery-ui.min.js"></script>
+    <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
+    <!-- Moment.js (required for older FullCalendar versions) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <!-- FullCalendar CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css"/>
+    <!-- FullCalendar JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js"></script>
+    
+</head>
+<body>
+    <div id="active-container">
+            <div id="myCV" class="top-bar-app window active glass " style="position: absolute;">
+                <!-- <div class="top-bar-btns">
+                    <div class="hide-btn "></div>
+                    <div class="resize-btn "></div>
+                    <div class="close-btn "></div>
+                </div> -->
+                    <div id="dragger" class="title-bar" >
+                      <div class="title-bar-text" style="display: flex; justify-items: center;"><img src="./media/images/cv.png" width="16" style="margin-right: 5px;"> Osama Alzahrani CV</div>
+                      <div class="title-bar-controls">
+                        <button aria-label="Minimize" class="hide-btn"></button>
+                        <button aria-label="Maximize" class="maximize-btn"></button>
+                        <button aria-label="Close" class="close-btn"></button>
+                      </div>
+                    </div>
+                    <div id="CV-body" class="window-body glass" style="height: 90vh;">
+                        <ul role="menubar">
+                            <li role="menuitem" tabindex="0">File</li>
+                            <li role="menuitem" tabindex="0">Edit</li>
+                            <li role="menuitem" tabindex="0">View</li>
+                            <li role="menuitem" tabindex="0">Help</li>
+                          </ul>
+                        <div class="CV-main">
+                            <div id="CV-Sidebar1">
+                                <ul id="nav-list">
+                                     <li class="nav-list-main">Navigation</li>
+                                     <li id="CV-personal-info_Nav" class="nav-list-item"><span>Personal Information</span></li>
+                                     <li id="CV-Education_Nav" class="nav-list-item"><span>Education</span></li>
+                                     <li id="CV-Projects_Nav" class="nav-list-item"><span>Projects</span></li>
+                                     <li id="CV-Contact_Nav" class="nav-list-item"><span>Contact Information</span></li>
+                                </ul>
+                            </div>
+                            <div id="CV-Content" class="has-scrollbar">
+                                <div id="CV-personal-info" class="center columns">
+                                    <span class="CV-Title">
+                                        Personal Information
+                                    </span>
+                                    <!-- <hr class="CV-hr"> -->
+                                    <h2>Osama Alzahrani</h2>
+                                    <img src="./media/images/CV/profile.jpg" width="200" style="border: 5px solid;">
+
+                                    <p class="context" style="width: 50%;">
+                                        I’m Osama Alzahrani, a computer science student who loves exploring technology.
+                                        I  enjoy web development and building applications.
+                                        I like turning ideas into user-friendly projects, and I’m always seeking new challenges to learn more.
+                                        My creativity and problem-solving skills help me work well in a team. Right now,
+                                        I’m focused on improving my skills by taking online courses, building personal projects, and experimenting with new technologies.
+                                        My goal is to use my knowledge and curiosity to create solutions that truly make a difference.
+                                    </p>
+                                </div>
+                                <div id="CV-Education" class="center columns">
+                                    <span class="CV-Title">
+                                        Education
+                                    </span>
+                                    <!-- <hr class="CV-hr"> -->
+                                    <p class="context" style="width: 50%;">
+                                        Bachelor of Computer science Qassim university Current GPA : Excellent.<br />
+                                        <span class="CV-subContent">My coursework covers programming languages, data structures, algorithms, web development, artificial intelligence, and other courses.</span>
+                                    </p>
+                                    
+                                </div>
+                                <div id="CV-Projects" class="center columns">
+                                    <span class="CV-Title">
+                                        Projects
+                                    </span>
+                                    <!-- <hr class="CV-hr"> -->
+                                    <div class="context" style="display: flex; flex-direction: column; gap: 2vh; width: 50%;">
+                                        <div>
+                                            <b>My 3D Portfolio Website</b><br />
+                                            <i>using HTML,CSS, JS, Three.js</i> </br>
+                                            Built an interactive 3D environment to showcase personal projects, featuring real-time rendering, dynamic animations, and user-friendly navigation for an engaging user experience.                                            <br>
+                                            <p class="creation-date">2025</p>
+                                            <img src="./media/images/Preview/portfolio.png" class="can-preview preview" style="width:100%">
+                                            
+                                        </div>
+                                        <div>
+                                            <b>Jadwaly Chrome Extenstion</b><br />
+                                            <i>using JS, HTML,CSS</i> </br>
+                                            Developed a Chrome extension to simplify university course registration with a user-friendly interface and an organized table layout for easy scheduling and planning.
+                                            <br>
+                                            <p class="creation-date">2024</p>
+                                            <img src="./media/images/Preview/Jadwaly-preview.png" class="can-preview preview" style="width:100%">
+                                            
+                                        </div>
+                                        <div>
+                                            <b>Training Experience Website</b><br />
+                                            <i>using Ruby on rails</i> </br>
+                                            website helps students share their training experiences to guide and support others. by using MVC design pattern.
+                                            <br>
+                                            <p class="creation-date">2023</p>
+                                            <img src="./media/images/Preview/traning.png" class="can-preview preview" style="width:100%">
+                                        </div>
+                                        <div>
+                                            <b>Dynamic background</b><br />
+                                            <i>Background based on Web (HTML,CSS,JS) using Wallpaper Engine</i> </br>
+                                            The background is synced with real life data using "OpenWeather" API, some objects in the background are synced with the API.
+                                            <br>
+                                            <p class="creation-date">2022</p>
+                                            <img src="./media/images/Preview/background.png" class="can-preview preview" style="width:100%">
+                                            
+                                        </div>
+                                        <div>
+                                            <b>Other project</b><br />
+                                            And other projects in my <a href="https://github.com/Osama-Alzahrani" target="_blank">Github</a> repository                                            
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div id="CV-Contact" class="center columns">
+                                    <span class="CV-Title">
+                                        Contact Information
+                                    </span>
+                                    <!-- <hr class="CV-hr"> -->
+                                    <div class="context" style="display: flex; flex-direction: column; gap: 2vh; width: 25%;">
+                                        <table>
+                                             <tr>
+                                                 <td><span>LinkedIn</span> </td>
+                                                 <td style="display: flex; align-items: center;"><box-icon name='linkedin-square' type='logo' ></box-icon> <a href="https://www.linkedin.com/in/osama-alzahrani/">osama-alzahrani</a></td>
+                                             </tr>
+                                             <tr>
+                                                 <td>Email</td>
+                                                 <td style="display: flex; align-items: center;"><box-icon name='envelope' type='solid' ></box-icon><a href="mailto:osama.aalzahranii@gmail.com">osama.aalzahranii@gmail.com</a></td>
+                                             </tr>
+                                             <tr>
+                                                 <td>Address</td>
+                                                 <td style="display: flex; align-items: center;"><box-icon name='location-plus' type='solid' ></box-icon> Riyadh, Saudi Arabia</td>
+                                             </tr>
+                                             <tr>
+                                                 <td>CoderHub</td>
+                                                 <td style="display: flex; align-items: center;"><box-icon name='component' type='solid' ></box-icon><a href="https://profile.satr.codes/osama2581/public/overview" target="_blank">@osama2581</a></td>
+                                             </tr>
+                                             <tr>
+                                                 <td>Github</td>
+                                                 <td style="display: flex; align-items: center;"><box-icon name='github' type='logo' ></box-icon><a href="https://github.com/Osama-Alzahrani" target="_blank">Osama-Alzahrani</a></td>
+                                             </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="CV-Sidebar2">
+                                <div class="CV-time-section">                                    
+                                    <p style="text-align: center; font-weight: bold; font-size: 25px;">Time Now</p>
+                                    <p id="CV_time"><span id="time-h" class="time-cell"></span>:<span id="time-min" class="time-cell"></span> <span id="time-type" class="time-cell"></span></p>
+                                </div>
+                                <div id="CV-Calendar-section">
+                                    <p style="text-align: center; font-weight: bold; font-size: 25px;">Calendar</p>
+                                    <div id="calendar"></div>
+                                </div>
+
+                                
+                            </div>
+                        </div>
+                    </div>
+            </div>
+
+            <!-- <div class="app-content">
+                <h2>My CV</h2>
+                <p>Last updated: March 15, 2023</p>
+            </div> -->
+    </div>
+    <div id="running-apps-context">
+        <div class="window" style="max-width: 250px">
+            <div class="title-bar"></div>
+            <div class="window-body">
+              <ul class="running-context-menu">
+                <li class="running-context-item pin-app"><img src="./media/images/pinned.png"  width="16" height="16">Pin app to the taskbar</li>
+                <li class="running-context-item close-window"><img src="./media/images/close.png"  width="16" height="16">Close window</li>
+              </ul>
+            </div>
+          </div>
+    </div>
+    <div id="context-menu" style="display:none">
+        <ul role="menu" class="can-hover" style="width: 200px">
+            <li role="menuitem" tabindex="0" aria-haspopup="true">View</li>
+            <li role="menuitem" tabindex="0" aria-haspopup="true">
+              Sort by
+              <ul role="menu">
+                <li role="menuitem"><a href="#menu">Name</a></li>
+                <li role="menuitem"><a href="#menu">Size</a></li>
+                <li role="menuitem"><a href="#menu">Item type</a></li>
+                <li role="menuitem"><a href="#menu">Date modified</a></li>
+              </ul>
+            </li>
+            <li role="menuitem" class="has-divider"><a href="#menu">Refresh</a></li>
+            <li role="menuitem" aria-disabled="true"><a href="#menu">Paste</a></li>
+            <li role="menuitem" aria-disabled="true" class="has-divider">
+              <a href="#menu">Paste shortcut</a>
+            </li>
+            <li role="menuitem">
+              <img src="https://img.icons8.com/color/18/000000/monitor--v1.png">
+              <a href="#menu">Screen resolution</a>
+            </li>
+            <li role="menuitem">
+              <img src="https://img.icons8.com/color/18/000000/virtual-machine2.png">
+              <a href="#menu">Gadgets</a>
+            </li>
+            <li role="menuitem">
+              <img src="https://img.icons8.com/color/18/000000/remote-desktop.png">
+              <a href="#menu">Personalize</a>
+            </li>
+          </ul>
+    </div>
+    <div class="desktop-grid">
+        <!-- 8 cells for demonstration; add more as needed -->
+        <div class="desktop-cell dropzone" id="cell-1">
+            <div class="desktop-icon" id="icon-1" draggable="true">
+                <img src="./media/images/cv.png" alt="Folder" draggable="false" />
+                <span>My CV</span>
+            </div>
+        </div>
+        <div class="desktop-cell dropzone" id="cell-2"></div>
+        <div class="desktop-cell dropzone" id="cell-3"></div>
+        <div class="desktop-cell dropzone" id="cell-4"></div>
+        <div class="desktop-cell dropzone" id="cell-5"></div>
+        <div class="desktop-cell dropzone" id="cell-6"></div>
+        <div class="desktop-cell dropzone" id="cell-7"></div>
+        <div class="desktop-cell dropzone" id="cell-8"></div>
+    </div>
+    <div id="taskBar">
+        <img id="start-menu-button" src="./media/images/start-menu.png">
+        <div id="pinned-apps">
+            <img class="taskbar-icon" src="./media/images/internet.png">
+            <img class="taskbar-icon" src="./media/images/Explorer.png">
+            <img class="taskbar-icon" src="./media/images/media.png">
+        </div>
+
+        <div id="running-apps">
+            <!-- <img class="app-running" src="./media/images/media.png"/>
+            <img class="app-running" src="./media/images/Explorer.png"/>
+            <img class="app-running" src="./media/images/media.png"/> -->
+        </div>
+        <div id="taskBarRight-section">
+            <div id="showDesktop"></div>
+            <div id="time"><span id="task-bar-time"></span><br><span id="task-bar-date"></span></div>
+            <div id="statusIcons">
+                <img id="audio" class="statusIcon" src="./media/images/audio-volume-high-panel.png">
+                <img id="audio" class="statusIcon" src="./media/images/gnome-netstatus-idle.png">
+                <img id="audio" style="width: 1vw;" src="./media/images/indicator-applet.png">
+                <div id="tray"><box-icon name='caret-up' color="white" size="16px"></box-icon></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="start-menu" style="visibility: hidden;">
+        <div id="apps">
+            <div id="search-apps">
+                <div id="search-bar">
+                    <input type="search" id="searchInput" placeholder="Search a program and apps">
+                    <!-- <img id="searchIcon" src="./media/images/viewmag.png" width="18"> -->
+                </div>
+            </div>
+                <p style="margin-left: 0.5vw;" id="all-apps"><box-icon name='caret-right' size="20px"></box-icon> <span style="margin-left: 1vw;">All apps</span></p>
+            <hr style="width: 92%;">
+            <div id="apps-list">
+                <div class="app-icon crashRun">
+                    <img src="./media/images/Explorer.png">
+                    <p>Explorer</p>
+                </div>
+                <div class="app-icon crashRun">
+                    <img src="./media/images/google_Chrome.png">
+                    <p>Google Chrome</p>
+                </div>
+                <div class="app-icon crashRun">
+                    <img src="./media/images/vscode.png">
+                    <p>Visual Studio Code</p>
+                </div>
+                <div class="app-icon crashRun">
+                    <img src="./media/images/Notepad_plus_plus.png">
+                    <p>Notepad</p>
+                </div>
+                <div class="app-icon crashRun">
+                    <img src="./media/images/paint.png">
+                    <p>Paint</p>
+                </div>
+                <div class="app-icon crashRun">
+                    <img src="./media/images/CalcWin7.png">
+                    <p>Calculator</p>
+                </div>
+            </div>
+        </div>
+        <div id="setting-list">
+            <img id="profileFrame" src="./media/images/FyaPV.png">
+            <img id="profileImage" src="./media/images/profile.png">
+            <ul>
+                <li>Osama Alzahrani</li>
+                <li>Documents</li>
+                <li>Picture</li>
+                <li>Music</li>
+                <hr>
+                <li>Games</li>
+                <li>Computer</li>
+                <hr>
+                <li>Control Panel</li>
+                <li>Devices and Printer</li>
+                <li>Default Programs</li>
+                <li style="margin-bottom: 0;">Help and Support</li>
+            </ul>
+
+            <div id="power">
+                <div id="powerText">
+                    <div id="shutdown">Shut down</div>
+                </div>
+                <div id="changePower"><box-icon name='caret-right' color="white" size="16px"></box-icon></div>
+            </div>
+        </div>
+    </div>
+    <div id="cursor" class="myCursor" style="display: none;"></div>
+
+    <div id="crashApp" class="centered-item crash" style="display: none;">
+        <div class="window active" style="max-width: 400px">
+            <div class="title-bar">
+              <div id="crashApp_title" class="title-bar-text">Another window with contents</div>
+              <div class="title-bar-controls">
+                <button aria-label="Minimize"></button>
+                <button aria-label="Maximize"></button>
+                <button aria-label="Close"></button>
+              </div>
+            </div>
+
+            <div class="window-body" style="background-color: #ffffff;">
+                <div style="padding: 10px;">
+                    <div class="app-icon">
+                        <img src="./media/images/media.png" id="crashApp_Icon">
+                        <div style="display: flex; flex-direction: column;">
+                            <span id="crashBlue_title" style="color: #3c649a; font-size: medium;">There's so much room for activities!</span>
+                            <p style="font-size: small;">Windows is checking for a solution to the Problem</p>
+                        </div>
+
+                    </div>
+                    <div style="margin-bottom: 10px;">
+                        <div id="progressBar" role="progressbar" class="marquee"></div>
+                    </div>
+                </div>
+              <section class="field-row" style="justify-content: flex-end; background-color: #f0f0f0; padding: 10px;">
+                <button onclick="cancelCrashApp()">Cancel</button>
+              </section>
+            </div>
+        </div>
+    </div>
+
+
+    
+    <script type="text/javascript" src="./js/main.js"></script>
+    <script type="text/javascript" src="./js/contextmenu.js"></script>
+    <script type="text/javascript" src="./js/taskbar.js"></script>
+    <script type="text/javascript" src="./js/cursor.js"></script>
+    <script type="text/javascript" src="./js/desktopGrid.js"></script>
+    <script type="text/javascript" src="./js/runapps.js"></script>
+    <script type="text/javascript" src="./js/cv.js"></script>
+</body>
+</html>

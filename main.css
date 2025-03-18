@@ -5,3 +5,165 @@
   margin: 0;
   padding: 0;
 }
+
+#UI {
+  position: absolute;
+  color: white;
+  margin: 10px;
+  z-index: 2;
+  background: linear-gradient(145deg, #1c1c1c, #242424);
+  width: 245px;
+  height: 90px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 15px;
+  border: 3px solid rgba(148, 148, 148, 0.6);
+  box-shadow: 0 0px 10px rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(5px);
+  transition: all 0.3s ease-in-out;
+  padding: 10px;
+}
+
+#UI:hover {
+  box-shadow: 0 5px 8px rgba(0, 48, 73, 0.5),
+    inset 0 0px 8px rgba(255, 255, 255, 0.15);
+  -webkit-transform: translateY(-1px);
+  -moz-transform: translateY(-1px);
+  -ms-transform: translateY(-1px);
+  -o-transform: translateY(-1px);
+}
+
+#UI-Buttons {
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+}
+
+.ui-item {
+  background: linear-gradient(145deg, #0077b6, #00a8e8);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  width: 45px; /* Slightly wider for better usability */
+  height: 45px;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 4px 10px rgba(0, 138, 255, 0.3),
+    inset 0 2px 4px rgba(255, 255, 255, 0.1);
+}
+
+.ui-item:hover {
+  background: linear-gradient(145deg, #00a8e8, #48cae4);
+  transform: scale(1.1);
+  box-shadow: 0 6px 15px rgba(0, 138, 255, 0.5);
+}
+
+.ui-item:active {
+  transform: scale(0.95);
+  box-shadow: 0 2px 6px rgba(0, 138, 255, 0.3);
+  background: linear-gradient(145deg, #0077b6, #0096c7);
+}
+
+#UI h2 {
+  font-size: 20px;
+  font-weight: bold;
+  font-family: "Courier New", Courier, monospace;
+}
+
+/* HTML: <div class="loader"></div> */
+.loader {
+  width: 120px;
+  height: 50px;
+  --g1: conic-gradient(from 90deg at left 3px top 3px, #0000 90deg, #fff 0);
+  --g2: conic-gradient(
+    from -90deg at bottom 3px right 3px,
+    #0000 90deg,
+    #fff 0
+  );
+  background: var(--g1), var(--g1), var(--g1), var(--g2), var(--g2), var(--g2);
+  background-position: left, center, right;
+  background-repeat: no-repeat;
+  animation: l9 1s infinite;
+}
+@keyframes l9 {
+  0% {
+    background-size: 35px 50%, 35px 50%, 35px 50%;
+  }
+  25% {
+    background-size: 35px 100%, 35px 50%, 35px 50%;
+  }
+  50% {
+    background-size: 35px 50%, 35px 100%, 35px 50%;
+  }
+  75% {
+    background-size: 35px 50%, 35px 50%, 35px 100%;
+  }
+  100% {
+    background-size: 35px 50%, 35px 50%, 35px 50%;
+  }
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  flex-direction: column;
+}
+
+.loading-word {
+  color: #fff;
+  margin-top: 20px;
+  font-size: 24px;
+  font-weight: bold;
+  font-family: "Courier New", Courier, monospace;
+}
+
+/* @-webkit-keyframes fadeOutUp {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+    -webkit-transform: translate3d(0, -2000px, 0);
+    transform: translate3d(0, -2000px, 0);
+  }
+} */
+
+#loading-screen {
+  background-color: #003049;
+  z-index: 3;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+}
+
+@keyframes fadeOutUp {
+  from {
+    opacity: 1;
+    bottom: 0px;
+    position: absolute;
+  }
+
+  to {
+    opacity: 0;
+    bottom: 1000px;
+    position: absolute;
+  }
+}
+.fadeout-up-screen {
+  animation: fadeOutUp 1s linear 0.5s forwards;
+  -webkit-animation: fadeOutUp 1s linear 0.5s forwards;
+}
