@@ -13,6 +13,26 @@ import { UnrealBloomPass } from "three/addons/postprocessing/UnrealBloomPass.js"
 import { OutputPass } from "three/addons/postprocessing/OutputPass.js";
 import { ShaderPass } from "three/addons/postprocessing/ShaderPass.js";
 
+const isMobile = (() => {
+  const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+
+  // Common mobile device identifiers
+  const mobileRegex =
+    /Android|iPhone|iPad|iPod|BlackBerry|Opera Mini|IEMobile|Mobile/i;
+
+  return mobileRegex.test(userAgent);
+})();
+
+// Usage
+if (isMobile) {
+  console.log("User is on a mobile device.");
+  $("#3D_Area").hide();
+  $("#mobileWarning").show();
+  throw new Error("Mobile device detected. Stopping execution.");
+} else {
+  console.log("User is on a desktop.");
+}
+
 const app = init({ antialias: true });
 const camera = Camera(new THREE.Vector3(0, 300, 200));
 const controller = controls(camera.camera, app.renderer, {

@@ -6,6 +6,10 @@
   padding: 0;
 }
 
+body {
+  background-color: #1c1c1c;
+}
+
 #UI {
   position: absolute;
   color: white;
@@ -166,4 +170,60 @@
 .fadeout-up-screen {
   animation: fadeOutUp 1s linear 0.5s forwards;
   -webkit-animation: fadeOutUp 1s linear 0.5s forwards;
+}
+
+#mobileWarning {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgb(51, 51, 51);
+  color: #fafafa;
+  padding: 25px;
+  width: 90%;
+  max-width: 400px;
+  border-radius: 15px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  z-index: 1000;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+/* Fade-in animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -60%);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+}
+
+/* Funny Image */
+#funnyImage {
+  width: 100%;
+  max-width: 300px;
+  margin: 15px 0;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Button to Continue */
+#continueButton {
+  background-color: #ff4d4d;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+}
+
+#continueButton:hover {
+  background-color: #cc0000;
 }

@@ -10,53 +10,69 @@
     <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
   </head>
   <body>
-    <div id="UI">
-      <h2>Controls</h2>
-      <div id="UI-Buttons">
-        <div id="CameraMode" class="ui-item">
-          <box-icon type="solid" name="camera-movie" color="white"></box-icon>
-        </div>
-        <div id="DeskLight" class="ui-item">
-          <box-icon type="solid" name="bulb" color="white"></box-icon>
+    <div id="mobileWarning">
+      <h2>Oops! This site is for PC only! 🚫</h2>
+      <p>
+        Looks like you're on a mobile device! Please visit this website on a
+        computer.
+      </p>
+      <img
+        id="funnyImage"
+        src="https://media.tenor.com/78_RIrgHwnkAAAAM/monkey-sad-monkey.gif"
+        alt="Funny Meme"
+      />
+      <br />
+    </div>
+
+    <div id="3D_Area">
+      <div id="UI">
+        <h2>Controls</h2>
+        <div id="UI-Buttons">
+          <div id="CameraMode" class="ui-item">
+            <box-icon type="solid" name="camera-movie" color="white"></box-icon>
+          </div>
+          <div id="DeskLight" class="ui-item">
+            <box-icon type="solid" name="bulb" color="white"></box-icon>
+          </div>
         </div>
       </div>
-    </div>
-    <div id="loading-screen">
-      <div class="center">
-        <div class="loader"></div>
-        <p class="loading-word">Loading</p>
+      <div id="loading-screen">
+        <div class="center">
+          <div class="loader"></div>
+          <p class="loading-word">Loading</p>
+        </div>
       </div>
+      <div>
+        <div id="css"></div>
+        <div id="webgl"></div>
+      </div>
+      <script type="x-shader/x-vertex" id="vertexshader">
+
+        varying vec2 vUv;
+
+        void main() {
+
+          vUv = uv;
+
+          gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
+
+        }
+      </script>
+
+      <script type="x-shader/x-fragment" id="fragmentshader">
+
+        uniform sampler2D baseTexture;
+        uniform sampler2D bloomTexture;
+
+        varying vec2 vUv;
+
+        void main() {
+
+          gl_FragColor = ( texture2D( baseTexture, vUv ) + vec4( 1.0 ) * texture2D( bloomTexture, vUv ) );
+
+        }
+      </script>
+      <script type="module" src="/main.js"></script>
     </div>
-    <div>
-      <div id="css"></div>
-      <div id="webgl"></div>
-    </div>
-    <script type="x-shader/x-vertex" id="vertexshader">
-
-      varying vec2 vUv;
-
-      void main() {
-
-      	vUv = uv;
-
-      	gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
-
-      }
-    </script>
-
-    <script type="x-shader/x-fragment" id="fragmentshader">
-
-      uniform sampler2D baseTexture;
-      uniform sampler2D bloomTexture;
-
-      varying vec2 vUv;
-
-      void main() {
-
-      	gl_FragColor = ( texture2D( baseTexture, vUv ) + vec4( 1.0 ) * texture2D( bloomTexture, vUv ) );
-
-      }
-    </script>
-    <script type="module" src="/main.js"></script>
   </body>
 </html>
