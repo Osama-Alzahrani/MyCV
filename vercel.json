@@ -1,5 +1,4 @@
 {
-  "public": "innerWebsite",
   "builds": [
     { "src": "index.html", "use": "@vercel/static" },
     { "src": "innerWebsite/**/*", "use": "@vercel/static" }
