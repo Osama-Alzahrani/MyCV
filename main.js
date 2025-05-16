@@ -25,12 +25,27 @@ const isMobile = (() => {
 
 // Usage
 if (isMobile) {
+  $("#3D_Area").remove();
   console.log("User is on a mobile device.");
-  $("#3D_Area").hide();
-  $("#mobileWarning").show();
+  // $("#mobileWarning").show();
+  const $element = $("<iframe>")
+    .css({
+      width: "100%",
+      height: "100vh",
+      opacity: 1,
+      border: "none",
+    })
+    .attr("src", "/mobile/index.html");
+  $("body").append($element);
+
+  $(document).ready(function () {
+    var myModal = new bootstrap.Modal($("#exampleModal")[0]);
+    myModal.show();
+  });
   throw new Error("Mobile device detected. Stopping execution.");
 } else {
   console.log("User is on a desktop.");
+  $("#3D_Area").removeAttr("hidden");
 }
 
 const app = init({ antialias: true });
