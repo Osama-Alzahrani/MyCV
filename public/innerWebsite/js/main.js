@@ -1,5 +1,10 @@
 window.addEventListener("click", (event) => {
+  event.stopPropagation();
+
   startMouseSound();
+  if (event.target.closest("#audio-settings")) return;
+  if (event.target === $("#audio")[0]) return;
+  $("#audio-settings").css("display", "none");
 });
 
 const KEYBOARD_AUDIO = Array.from(
@@ -30,15 +35,8 @@ $("body").keyup(function (e) {
   startKeyboardSound();
 });
 
-$("#myCV").draggable({ handle: $("#dragger"), containment: "parent" });
-$("#myCV").resizable({ containment: "#active-container" });
-$(function () {
-  $("#myCV").resizable({
-    containment: "#active-container",
-    alsoResize: $("#CV-body"),
-    minWidth: 300,
-  });
-});
+DargResizeHandler();
+
 $("#running-apps").sortable({
   axis: "x",
   activate: function (event, ui) {
@@ -49,3 +47,28 @@ $("#running-apps").sortable({
   },
   containment: "parent",
 });
+function DargResizeHandler() {
+  apps=["myCV","doom","digger"];
+  $.each(apps,function(index,appId){
+    console.log($(`#${appId} #active-container`));
+    
+    $(`#${appId}`).draggable({ handle: $(`#${appId} #dragger`), containment: $("#active-container") });
+    // $(`#${appId}`).resizable({ containment: `#active-container` });
+    $(function () {
+      $(`#${appId}`).resizable({
+        containment: `#active-container`,
+        alsoResize: $(`#${appId} #CV-body`),
+        minWidth: 300,
+      });
+    });
+  });
+
+}
+
+
+
+loadDos();
+
+async function loadDos() {
+    await import("https://v8.js-dos.com/latest/js-dos.js");
+}

@@ -2,7 +2,7 @@ const contextMenu = $("#running-apps-context");
 let activeAppContextMenu;
 
 $(document).on("click", function(e) {
-    e.preventDefault()
+    // e.preventDefault()
     if (e.target.offsetParent != contextMenu) {
     contextMenu.css({
         visibility: "hidden",
@@ -13,16 +13,19 @@ $(document).on("click", function(e) {
 
 
 $(document).on('contextmenu','.app-running', function(e){
-    // console.log("my E",e.target.name);
     e.preventDefault()
     activeAppContextMenu = e.target.name;
-    $(contextMenu).find('.close-window').show();
+    const closeMenu = $(contextMenu).find('.close-window')
+    closeMenu.show();
+    closeMenu.attr("app-id",activeAppContextMenu);
 
     showContextMenu(e);
 });
 
 $(document).on('contextmenu','.taskbar-icon', function(e){
     activeAppContextMenu = e.target.name;
+    console.log(activeAppContextMenu, e.target, "taskbar-icon");
+    
     if(!$(this).hasClass('app-running')){
         $(contextMenu).find('.close-window').hide();
     }
@@ -48,15 +51,17 @@ function showContextMenu(e){
 
 
 $(".close-window").click(function(){
-    $("#myCV").hide();
-    removeFromRunningApps("myCV");
+    const appId = $(this).attr("app-id");
+    $(`#${appId}`).hide();
+    removeFromRunningApps(appId);
 });
 
 $(".pin-app").click(function(){
     element = $(".app-running[name="+activeAppContextMenu+"]")
     taskbar = $(".taskbar-icon[name="+activeAppContextMenu+"]")
     
-
+    console.log(element,taskbar,activeAppContextMenu);
+    
     if(taskbar.length > 0){
         taskbar.removeClass("taskbar-icon");
         if(taskbar.hasClass("app-running")){

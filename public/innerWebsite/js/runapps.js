@@ -1,6 +1,7 @@
 
 
 var openedApps = [];
+var openedGames = [];
 
 function addToRunningApps(id,icon){
     $("#running-apps").append(`
@@ -9,19 +10,33 @@ function addToRunningApps(id,icon){
     // alert("Running");
 }
 
-function tryToRunApp(elm,isItDesktop) {
+function tryToRunApp(appid,isItDesktop,icon,name) {
+    console.log(appid);
+    console.log(isItDesktop,icon,"icon");
+
+    
+
+
+
     $("body").css("cursor", "none");
     $("#cursor").show();
 
     
     setTimeout(function() {
-        $(elm).show();
+        $("#"+appid).show();
         
-        openedApps.push($(elm).attr('id'));
+        
+
+        
+        openedApps.push(appid);
         if(isItDesktop){
-            addToRunningApps($(elm).attr('id'),"cv.png");
+            addToRunningApps(appid,icon);
         }else{
-            $(".taskbar-icon[name=myCV]").addClass("app-running");
+            $(".taskbar-icon[name="+appid+"]").addClass("app-running");
+            if (appid !== "myCV"){
+                openGameInEmulator(appid,appid,icon,name);
+                return;
+            }
         }
         
         
@@ -32,10 +47,78 @@ function tryToRunApp(elm,isItDesktop) {
     }, 1000);
 }
 
-$(".desktop-icon").dblclick(function(){
+function getFileNameFromPath(fullPath) {
+  // Find the last index of either '/' (Unix-like) or '\' (Windows)
+  const lastSlashIndex = fullPath.lastIndexOf('/');
+  const lastBackslashIndex = fullPath.lastIndexOf('\\');
+  const lastSeparatorIndex = Math.max(lastSlashIndex, lastBackslashIndex);
 
-    openApp(true);
+  // Extract the substring after the last separator
+  // If no separator is found, the entire path is considered the file name
+  console.log(fullPath);
+  if (lastSeparatorIndex === -1) {
+    
+    return fullPath;
+  } else {
+    return fullPath.substring(lastSeparatorIndex + 1);
+  }
+}
+
+
+$(".desktop-icon").dblclick(function(){
+    const appToRun = $(this).attr("run");
+    const icon = $(this).find("img").attr("src");
+    const name = $(this).attr("name");
+    if (appToRun !== "myCV"){
+        const game = $(this).attr("game");
+        openGameInEmulator(appToRun,game,icon,name);
+        return;
+    }
+
+    openApp(appToRun,true,icon,name);
 });
+
+function openGameInEmulator(appid,game,icon,name){
+    // const emulatorBody = $("#GameEmulator #CV-main");
+
+    const newApp = `
+            <div id="${appid}" class="top-bar-app window active glass app" hidden icon="${icon}" style="position: absolute; top: 0;">
+                <div id="dragger" class="title-bar" >
+                    <div class="title-bar-text" style="display: flex; justify-items: center;"><img src="${icon}" width="16" style="margin-right: 5px;">${name}</div>
+                    <div class="title-bar-controls">
+                    <button aria-label="Minimize" class="hide-btn"></button>
+                    <button aria-label="Maximize" class="maximize-btn"></button>
+                    <button aria-label="Close" class="close-btn"></button>
+                    </div>
+                </div>
+                <div id="CV-body" class="window-body glass" style="height: 90vh;">
+                    <ul role="menubar">
+                        <li role="menuitem" tabindex="0">File</li>
+                        <li role="menuitem" tabindex="0">Edit</li>
+                        <li role="menuitem" tabindex="0">View</li>
+                        <li role="menuitem" tabindex="0">Help</li>
+                        </ul>
+                    <div class="CV-main">
+                        <div id="dos" style="width: 100%; height: 100%"></div>
+                    </div>
+                </div>
+        </div>
+        `
+    $("#dos-container").append(newApp);
+
+    DargResizeHandler();
+
+    const volume = $("#volumeControl").val() / 100;
+    const gameDos = Dos($(`#${appid} #dos`)[0], {
+        kiosk: true,
+        autoStart: true,
+        noCursor: true,
+        url: `./${game}.jsdos`,
+        volume: volume,
+    });
+    openedGames.push({id: appid, instance: gameDos});
+    openApp(appid,true,icon,name);
+}
 
 
 // $(".").click(function(){
@@ -43,36 +126,77 @@ $(document).on('click','.taskbar-icon', function(e){
     console.log($(this).attr('name'));
 
     if($(this).hasClass("app-running"))
-    return
-    
-    if($(this).attr('name') === "myCV"){
-        openApp(false);
+        return
+    appName = $(this).attr('name');
+    if(appName){
+        openApp(appName,false,$(this).attr("src"));
     }
 });
 
-function openApp(isItDesktop){
-    if($("#myCV").is(":hidden") ) {
-        if(!openedApps.includes("myCV")){
+function openApp(appId,isItDesktop,icon,name){
+    const app = $(`#${appId}`);
+
+    if(app.is(":hidden") ) {
+        if(!openedApps.includes(appId)){
             if(isItDesktop){
-                tryToRunApp($("#myCV"),true);
+                tryToRunApp(appId,true,getFileNameFromPath(icon),name);
             }else{
-                tryToRunApp($("#myCV"),false);
+                tryToRunApp(appId,false,getFileNameFromPath(icon),name);
             }
 
         }else{
-            $("#myCV").show();
+            app.show();
         }
         
     }else{
         //TODO: Remove it
-        alert("Error")
+        console.log(app.length);
+        
+        if (app.length){
+            alert("Error")
+        }else{
+            tryToRunApp(appId,isItDesktop,getFileNameFromPath(icon),name);
+        }
     }
+}
+
+function setActiveWindow(id){
+    openedApps.map(app=>{
+        $("#"+app).removeClass("activeApp");
+    });
+    $("#"+id).addClass("activeApp");
+    openedGames.map(game=>{
+        if(game.id === id){
+            game.instance.setPaused(false);
+        }else{
+            game.instance.setPaused(true);
+        }
+    });
 }
 
 $(document).on('click','.app-running', function(){
     const id = $(this).attr("name");
-    $("#"+id).toggle();
-    console.log("#"+id);
+    console.log(openedApps);
+    
+    
+    
+    
+    if($("#"+id).is(":hidden")){
+        $("#"+id).toggle();
+    }else if($("#"+id).hasClass("activeApp") && !$("#"+id).is(":hidden")){
+        console.log("Hide");
+        openedGames.map(game=>{
+            game.instance.setPaused(true);            
+        });
+        $("#"+id).hide();
+        return;
+    } else
+
+    if($("#"+id).hasClass("activeApp") && $("#"+id).is(":hidden")){
+        $("#"+id).show();
+    }
+    setActiveWindow(id);
+    // console.log("#"+id);
 });
 
 
@@ -80,6 +204,12 @@ $(document).on('click','.app-running', function(){
     
 
 function removeFromRunningApps(id){
+    openedGames.filter(game => {
+        if(game.id === id){
+            game.instance.stop();
+        }
+    });
+
     let app = $(".app-running[name="+id+"]");
     if(app.hasClass("taskbar-icon")){
         app.removeClass("app-running");
@@ -93,7 +223,7 @@ function removeFromRunningApps(id){
 
 // If page is loaded then run the app
 $(function(){
-    openApp(true);
+    openApp('myCV',true,'cv.png','myCV');
 });
 
 

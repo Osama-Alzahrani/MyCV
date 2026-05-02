@@ -4,8 +4,16 @@ body{
     background-repeat: no-repeat;
     background-size: cover;
     overflow: hidden;
-    height: 100%;
+    height: 100vh;
     padding: 0;
+}
+
+html, body {
+  margin: 0;      /* Removes default browser margins */
+  padding: 0;     /* Removes default browser padding */
+  width: 100%;    /* Ensures full width of the viewport */
+  height: 100vh;   /* Ensures full height of the viewport */
+  overflow: hidden; /* Prevents scrollbars if content exceeds viewport */
 }
 
 
@@ -27,15 +35,15 @@ body{
     -o-transform: translate(-30%, -30%);
 }
 #taskBar{
-    position: absolute;
+    /* position: absolute; */
     display: flex;
     justify-items: center;
     justify-self: center;
     align-items: center;
     gap: 1.7vw;
-    bottom: 0;
+    /* bottom: 0; */
     width: 100%;
-    height: 4.3%;
+    height: 4vh;
     background-color: rgba(51, 51, 51, 0.4);
     -webkit-backdrop-filter: blur(3px);
     backdrop-filter: blur(3px);
@@ -97,6 +105,8 @@ body{
     flex-direction: row-reverse;
     align-items: center;
     gap: 0.2vw;
+    width: 8px;
+    height: 8px;
 }
 
 .statusIcon{
@@ -141,7 +151,6 @@ body{
     align-items: center;
 }
 #setting-list ul{
-    padding-inline-start: 1vw;
     font-size: 15px;
 }
 #setting-list li{
@@ -161,10 +170,11 @@ ul hr {
 
 #power{
     display: flex;
-    width: 60%;
+    width: 100%;
     align-items: center;
-    margin-left: -2vw;
     margin-top: 0.5vw;
+    display: flex;
+    margin-left: 1.5vw;
 }
 
 #powerText{
@@ -266,12 +276,19 @@ ul hr {
     margin-right: 0.5vw;
 }
 
+#CV-body{
+    display: flex;
+    flex-direction: column;
+}
+
 
 .desktop-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
     gap: 0.1vw;
-    margin: 10px;
+    /* margin: 10px; */
+    position: absolute;
+    width: 100%;
   }
   
   /* Each cell acts as a drop zone */
@@ -287,14 +304,18 @@ ul hr {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 95%;
-    height: 95%;
+    width: 100%;
+    height: 100%;
     padding: 5%;
     border-radius: 6px;
     text-align: center;
     transition: transform 0.2s;
     position: absolute;
     top: 0;
+    padding-bottom: 100px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
   
   
@@ -314,18 +335,20 @@ ul hr {
   #active-container{
     width: 100%;
     /* background-color: aqua; */
-    height: 95.4%;
-    position: absolute;
-    top: 0;
-    display: flex;
+    /* height: 95.4%; */
+    /* min-height: 95vh; */
+    
+    /* position: absolute; */
+    /* top: 0; */
+    /* display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: center; */
+    min-height: 96vh;
     
   }
   #myCV{
     width: 95%;
     overflow: hidden;
-    z-index: 1;
     display:none;
     user-select: none;
 }
@@ -384,7 +407,7 @@ ul hr {
 
     .CV-main{
         display: flex;
-        height: 96.45%;
+        height: 100%;
         overflow: hidden;
         user-select:text;
     }
@@ -497,6 +520,8 @@ ul hr {
         font-weight: bold;
         text-align: center;
         color: white;
+        width: 100%;
+        padding: 5%;
     }
 
     .time-cell{
@@ -514,17 +539,23 @@ ul hr {
         height: 100%;
         width: 100%;
         color: white;
+        margin: 5%;
     }
 
     .CV-time-section{
         background-color: #1b263b;
-        padding: 1%;
+        padding: 5%;
         color: #fff;
+        width: 100%;
+        height: fit-content;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
     }
     
     .context{
         margin-top: 5%;
-        margin-bottom: 5%;
         text-align: justify;
         font-size: large;
         font-weight:400;
@@ -576,6 +607,8 @@ ul hr {
 
     .preview{
         border: 5px solid;
+        box-sizing: border-box;
+        cursor: zoom-in;
     }
     
     #context-menu{
@@ -622,6 +655,7 @@ ul hr {
     -moz-border-radius: 10px;
     -ms-border-radius: 10px;
     -o-border-radius: 10px;
+    margin-block: 10px;
 }
 
 .centered-item {
@@ -633,4 +667,141 @@ ul hr {
 
 .crash{
     z-index: 5;
+}
+
+.app{
+    z-index: 10;
+}
+
+img {
+    max-width: fit-content !important;
+}
+
+*{
+    /* box-sizing: initial !important; */
+    box-sizing: border-box;
+}
+
+.activeApp{
+    z-index: 11;
+}
+
+.drag-select {
+  background-color: rgba(20, 137, 189, 0.5);
+}
+.intersected {
+  /* border: 5px solid black;
+  box-sizing: border-box; */
+  background-color: rgba(135, 206, 250, 0.5) !important;
+}
+
+.CV-Sperater{
+    width: 100%; 
+    margin-block: 10px; 
+    height: 2px; 
+    background-color: gray;
+}
+
+.audioPopup{
+    position: absolute;
+    bottom: 5vh;
+    right: 3.1vw;
+    display: none;
+    z-index: 1000;
+    user-select: none;
+}
+
+.vertical-range-wrapper {
+    height: 200px;        /* visual height of the slider */
+    width: 40px;          /* space so it's not clipped */
+    position: relative;
+}
+
+.vertical-range {
+    position: absolute;
+    transform: rotate(-90deg);
+    transform-origin: left top;
+    
+    /* This controls the REAL (horizontal) size before rotation */
+    width: 110px !important;          /* ← slider length you want */
+    height: 20px;          /* ← slider thickness */
+    
+    /* Fixes alignment after rotation */
+    top: 125px;            /* adjust until the slider sits correctly */
+    left: 10px;
+}
+
+.audio{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    width: 60px;
+    height: 28vh;
+}
+
+.audio-icon{
+    box-sizing:border-box;
+    padding: 1px;
+    border: 1px solid rgba(8, 8, 8, 0.0);
+
+}
+
+.audio-icon:hover{
+    box-sizing:border-box;
+    cursor: pointer;
+    border: 1px solid rgba(8, 8, 8, 0.2);
+    
+}
+
+.audio-mixer{
+    background: #f1f5fb;
+    width: 100%;
+    text-align: center;
+    height: 80px;
+    color: #0066d0;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    border-top: 1px solid rgba(8, 8, 8, 0.2);
+}
+
+.audio input[type="range"]::-webkit-slider-thumb {
+    transform: translateY(-2px) !important;
+    left: 10px !important;
+      -webkit-appearance: none;
+}
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 3px;
+  margin-right: -3px;
+  margin-left: -3px;
+}
+
+#task-bar-time{
+    font-size: 12px;
+}
+#task-bar-date{
+    font-size: 11px;
+}
+
+#task-bar-date,#task-bar-time{
+    line-height: 10px;
+}
+
+*:not(.dos-root *) {
+    image-rendering: auto !important;
+}
+
+canvas:not(.dos-root canvas) {
+    width: auto !important;
+    height: auto !important;
+}
+
+* {
+    will-change: auto !important;
+}
+
+.ui-resizable-se{
+    background-image: none;
 }

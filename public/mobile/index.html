@@ -1,211 +1,289 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT"
-      crossorigin="anonymous"
-    />
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO"
-      crossorigin="anonymous"
-    ></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
-    <link rel="stylesheet" href="./css/main.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Osama | Tailwind Portfolio</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Outfit:wght@300;500;700;900&display=swap" rel="stylesheet">
+
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['Outfit', 'sans-serif'],
+              display: ['Space Grotesk', 'sans-serif'],
+            },
+            colors: {
+              accent: '#22d3ee', // Cyan-400
+              dark: '#050505',
+              glass: 'rgba(30, 30, 30, 0.4)',
+            },
+            animation: {
+              'blob': 'blob 10s infinite',
+              'float': 'float 6s ease-in-out infinite',
+              'bounce-slow': 'bounce 3s infinite',
+              'scroll': 'scroll 20s linear infinite',
+            },
+            keyframes: {
+              blob: {
+                '0%, 100%': { transform: 'translate(0, 0) scale(1)' },
+                '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+                '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+              },
+              float: {
+                '0%, 100%': { transform: 'translateY(0)' },
+                '50%': { transform: 'translateY(-20px)' },
+              },
+              scroll: {
+                '0%': { transform: 'translateX(0)' },
+                '100%': { transform: 'translateX(-50%)' },
+              }
+            }
+          }
+        }
+      }
+    </script>
+
+    <style>
+      /* Hide Scrollbar */
+      .no-scrollbar::-webkit-scrollbar { display: none; }
+      .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
   </head>
-  <body class="bg-dark">
-    <nav class="navbar bg-dark navbar-expand-lg sticky-top">
-      <div class="container-fluid">
-        <a class="navbar-brand text-white" href="#">Osama Portfolio</a>
-        <hr class="text-white" />
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarNav"
-          aria-controls="navbarNav"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="custom-toggler navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse text-white" id="navbarNav">
-          <ul class="navbar-nav">
-            <li class="nav-item">
-              <a class="nav-link active text-white" aria-current="page" href="#"
-                >Home</a
-              >
-            </li>
-            <li class="nav-item">
-              <a class="nav-link text-white" href="#education">Education</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link text-white" href="#projects">Projects</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link text-white" href="#contact">Contact</a>
-            </li>
-          </ul>
-        </div>
+
+  <body class="bg-dark text-white overflow-hidden antialiased selection:bg-accent selection:text-black">
+
+    <div class="fixed inset-0 z-[-2] bg-[radial-gradient(circle_at_center,_#11111b_0%,_#000000_100%)]"></div>
+    <div class="fixed top-[-10%] left-[-20%] w-[300px] h-[300px] bg-indigo-600 rounded-full blur-[100px] opacity-50 animate-blob mix-blend-screen z-[-1]"></div>
+    <div class="fixed bottom-[-10%] right-[-20%] w-[300px] h-[300px] bg-cyan-600 rounded-full blur-[100px] opacity-50 animate-blob animation-delay-2000 mix-blend-screen z-[-1]"></div>
+
+    <nav class="fixed top-0 left-0 w-full z-50 p-5">
+      <div class="flex justify-between items-center bg-black/40 backdrop-blur-xl border border-white/10 rounded-full px-6 py-3 shadow-2xl">
+        <a href="#" class="font-display font-bold text-[3vw] tracking-tight">Osama<span class="text-accent">.dev</span></a>
+        <a href="mailto:osama.aalzahranii@gmail.com" class="bg-white/10 hover:bg-white text-white hover:text-black transition-colors rounded-full px-5 py-2 text-[3vw] font-bold">Contact Me</a>
       </div>
     </nav>
 
-    <div class="container">
-      <div class="text-white m-4 rounded p-1 disappear position-relative">
-        <img
-          src="../innerWebsite/media/images/CV/profile.jpg"
-          class="img-fluid p-3"
-          alt=""
-        />
-        <hr class="bg-white" />
-        <p style="text-align: justify">
-          My Name is Osama, a Computer science student with a strong desire to
-          learn, looking to explore different domains within computer science
-          field. Interested in web development and applications building.
-          Excited to apply my knowledge and skills on innovative projects.
+    <main class="h-screen w-full snap-y snap-mandatory overflow-y-scroll no-scrollbar scroll-smooth">
+
+      <section id="home" class="h-screen w-full snap-start snap-always flex flex-col justify-center items-center relative px-6 overflow-hidden">
+        
+        <div class="relative w-96 h-96 mb-6 animate-float mt-[-10vh]">
+          <div class="absolute inset-0 rounded-full border-[3px] border-white/20"></div>
+          <div class="absolute inset-0 rounded-full border-[3px] border-accent/50 blur-[2px]"></div>
+          <img src="../innerWebsite/media/images/CV/profile.jpg" class="w-full h-full object-cover rounded-full shadow-[0_0_60px_rgba(34,211,238,0.2)]" alt="Osama">
+        </div>
+
+        <h1 class="font-display font-bold text-[8vw] leading-[0.9] text-center tracking-tighter animate-on-scroll">
+          Osama <br> <span class="text-[#22d3ee] bg-clip-text bg-gradient-to-r from-accent to-indigo-400">Al-Zahrani</span>
+        </h1>
+
+        <p class="mt-6 text-[3.8vw] text-white/70 text-center animate-on-scroll delay-100 mb-20">
+            Junior software developer with a solid foundation in computer science.
         </p>
-      </div>
-    </div>
-    <div class="bg-black">
-        <div id="education" class="container">
-            <div class="text-white m-4 rounded p-1 py-5 appear-disappear-normal position-relative">
 
-                <h2 class="border-bottom">
-                    Education
-                </h2>
-                <p>
-                    Bachelor of Computer science <br />Qassim university <br /> Current GPA : Excellent.<br />
-                    <br />
-                    <span class="CV-subContent">My coursework covers programming languages, data structures, algorithms, web development, artificial intelligence, and other courses.</span>
-                </p>
-            </div>
-        </div>
-    </div>
-    <div>
-      <div class="container">
-        <div id="projects" class="text-white m-4 rounded p-1" >
-            <div class="appear-disappear">
-                <img
-                src="../innerWebsite/media/images/Preview/portfolio.png"
-                class="img-fluid"
-                alt=""
-              />
-              
-              <p style="text-align: justify">
-                <b>3D Portfolio Website</b><br />
-                <i>using HTML, CSS, JS, Three.js</i> </br>
-                Built an interactive 3D environment to showcase personal projects, featuring real-time rendering, dynamic animations, and user-friendly navigation for an engaging user experience.                                            <br>
-                <p class="creation-date">2025</p>
-              </p>
-              <hr class="bg-white" />
-            </div>
-            <div class="appear-disappear">
-                <img
-                src="../innerWebsite/media/images/Preview/Jadwaly-preview.png"
-                class="img-fluid"
-                alt=""
-              />
-              
-              <p style="text-align: justify">
-                <b>Jadwaly Chrome Extenstion</b><br />
-                <i>using JS, HTML,CSS</i> </br>
-                Developed a Chrome extension to simplify university course registration with a user-friendly interface and an organized table layout for easy scheduling and planning.
-                <br>
-                <p class="creation-date">2024</p>
-              </p>
-              <hr class="bg-white" />
-            </div>
-            <div class="appear-disappear">
-                <img
-                src="../innerWebsite/media/images/Preview/traning.png"
-                class="img-fluid"
-                alt=""
-              />
-              
-              <p style="text-align: justify">
-                <b>Training Experience Website</b><br />
-                <i>using Ruby on rails</i> </br>
-                website helps students share their training experiences to guide and support others. by using MVC design pattern.
-                <br>
-                <p class="creation-date">2023</p>
-              </p>
-              <hr class="bg-white" />
-            </div>
-            <div class="appear-disappear">
-                <img
-                src="../innerWebsite/media/images/Preview/background.png"
-                class="img-fluid"
-                alt=""
-              />
-              
-              <p style="text-align: justify">
-                <b>Dynamic background</b><br />
-                <i>Background based on Web (HTML,CSS,JS) using Wallpaper Engine</i> </br>
-                The background is synced with real life data using "OpenWeather" API, some objects in the background are synced with the API.
-                <br>
-                <p class="creation-date">2022</p>
-              </p>
-              <hr class="bg-white" />
-
-              <p style="text-align: justify">
-                <b>Other project</b><br />
-                And other projects in my <a href="https://github.com/Osama-Alzahrani" target="_blank">Github</a> repository        
-              </p>
-              <hr class="bg-white" />
-            </div>
-        </div>
-      </div>
-    </div>
-    <div>
-    
-    
-    <div>
-        <div id="contact" class="bg-black">
-            <div class="container">
-                <div class="text-white rounded p-1 py-5">
-    
-                <h2 class="text-center">
-                    Contact Information
-                </h2>
-                <!-- <hr class="CV-hr"> -->
-                <hr class="bg-white" />
-                <div class="d-flex justify-content-center">
-
-                
-                    <table class="text-center">
-                        <tr>
-                            <td><i class="fa-brands fa-linkedin-in"></i></td>
-                            <td class="text-center"> <a href="https://www.linkedin.com/in/osama-alzahrani/">osama-alzahrani</a></td>
-                        </tr>
-                        <tr>
-                            <td><i class="fa-solid fa-envelope"></i></td>
-                            <td class="text-center"><a href="mailto:osama.aalzahranii@gmail.com">osama.aalzahranii@gmail.com</a></td>
-                        </tr>
-                        <tr>
-                            <td><i class="fa-solid fa-location-dot"></i></td>
-                            <td class="text-center"><box-icon name='location-plus' type='solid' ></box-icon> Riyadh, Saudi Arabia</td>
-                        </tr>
-                        <tr>
-                            <td>CoderHub</td>
-                            <td class="text-center"><box-icon name='component' type='solid' ></box-icon><a href="https://profile.satr.codes/osama2581/public/overview" target="_blank">@osama2581</a></td>
-                        </tr>
-                        <tr>
-                            <td><i class="fa-brands fa-github"></i></td>
-                            <td class="text-center"><box-icon name='github' type='logo' ></box-icon><a href="https://github.com/Osama-Alzahrani" target="_blank">Osama-Alzahrani</a></td>
-                        </tr>
-                    </table>
+        <div class="absolute bottom-[26vh] w-full overflow-hidden whitespace-nowrap opacity-60">
+            <div class="inline-flex animate-scroll">
+                <div class="flex gap-12 mx-6">
+                    <i class="devicon-python-plain text-[10vw]"></i>
+                    <i class="devicon-cplusplus-plain text-[10vw]"></i>
+                    <i class="devicon-java-plain text-[10vw]"></i>
+                    <i class="devicon-javascript-plain text-[10vw]"></i>
+                    <i class="devicon-html5-plain text-[10vw]"></i>
+                    <i class="devicon-css3-plain text-[10vw]"></i>
+                    <i class="devicon-mysql-plain text-[10vw]"></i>
+                    <i class="devicon-rails-plain text-[10vw]"></i>
+                    <i class="devicon-dart-plain text-[10vw]"></i>
+                    <i class="devicon-flutter-plain text-[10vw]"></i>
+                    <i class="devicon-dotnetcore-plain text-[10vw]"></i>
+                    <i class="devicon-angularjs-plain text-[10vw]"></i>
+                    <i class="devicon-react-original text-[10vw]"></i>
+                    <i class="devicon-vuejs-plain text-[10vw]"></i>
+                    <i class="devicon-django-plain text-[10vw]"></i>
                 </div>
+                <div class="flex gap-12 mx-6">
+                    <i class="devicon-python-plain text-[10vw]"></i>
+                    <i class="devicon-cplusplus-plain text-[10vw]"></i>
+                    <i class="devicon-java-plain text-[10vw]"></i>
+                    <i class="devicon-javascript-plain text-[10vw]"></i>
+                    <i class="devicon-html5-plain text-[10vw]"></i>
+                    <i class="devicon-css3-plain text-[10vw]"></i>
+                    <i class="devicon-mysql-plain text-[10vw]"></i>
+                    <i class="devicon-rails-plain text-[10vw]"></i>
+                    <i class="devicon-dart-plain text-[10vw]"></i>
+                    <i class="devicon-flutter-plain text-[10vw]"></i>
+                    <i class="devicon-dotnetcore-plain text-[10vw]"></i>
+                    <i class="devicon-angularjs-plain text-[10vw]"></i>
+                    <i class="devicon-react-original text-[10vw]"></i>
+                    <i class="devicon-vuejs-plain text-[10vw]"></i>
+                    <i class="devicon-django-plain text-[10vw]"></i>
                 </div>
             </div>
         </div>
-    </div>
-    </div>
-    <p class="text-white m-3 pt-5">© Osama Alzahrani</p>
 
+        <div class="absolute bottom-[18vh] animate-bounce-slow opacity-50">
+           <i class="fa-solid fa-chevron-down text-[6.1vw]"></i>
+        </div>
+      </section>
+
+      <section class="h-screen w-full snap-start snap-always flex flex-col justify-center items-center px-4 relative">
+        <div class="w-full h-[85vh] bg-glass backdrop-blur-2xl border border-white/10 rounded-[2.5rem] overflow-hidden flex flex-col shadow-2xl animate-on-scroll">
+          
+          <div class="h-[45%] w-full relative">
+            <img src="../innerWebsite/media/images/Preview/portfolio.png" class="w-full h-full object-cover" alt="Portfolio">
+            <div class="absolute inset-0 bg-gradient-to-t from-[#1e1e1e] to-transparent"></div>
+          </div>
+
+          <div class="h-[55%] p-8 flex flex-col justify-center bg-[#1e1e1e]/60">
+            <div class="text-accent font-bold tracking-[0.2em] uppercase text-3xl mb-2">Project 01</div>
+            <h2 class="font-display font-bold text-6xl leading-none mb-4">3D Portfolio</h2>
+            <p class="text-4xl text-white/60 leading-relaxed mb-6">
+              An immersive 3D world built with <b class="text-white">Three.js</b>. A unique spatial experience.
+            </p>
+            <div class="flex gap-3">
+              <span class="px-4 py-2 bg-white text-black rounded-xl font-bold text-3xl">WebGL</span>
+              <span class="px-4 py-2 border border-white/30 rounded-xl text-3xl">2025</span>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <section class="h-screen w-full snap-start snap-always flex flex-col justify-center items-center px-4 relative">
+        <div class="w-full h-[85vh] bg-glass backdrop-blur-2xl border border-white/10 rounded-[2.5rem] overflow-hidden flex flex-col shadow-2xl animate-on-scroll">
+          
+          <div class="h-[45%] w-full relative">
+            <img src="../innerWebsite/media/images/Preview/Jadwaly-preview.png" class="w-full h-full object-cover" alt="Jadwaly">
+            <div class="absolute inset-0 bg-gradient-to-t from-[#1e1e1e] to-transparent"></div>
+          </div>
+
+          <div class="h-[55%] p-8 flex flex-col justify-center bg-[#1e1e1e]/60">
+            <div class="text-accent font-bold tracking-[0.2em] uppercase text-3xl mb-2">Project 02</div>
+            <h2 class="font-display font-bold text-6xl leading-none mb-4">Jadwaly Ext.</h2>
+            <p class="text-4xl text-white/60 leading-relaxed mb-6">
+              Solving university chaos. A <b class="text-white">Chrome Extension</b> that transforms a cluttered system into a clean UI.
+            </p>
+            <div class="flex gap-3">
+              <span class="px-4 py-2 bg-white text-black rounded-xl font-bold text-3xl">Chrome</span>
+              <span class="px-4 py-2 border border-white/30 rounded-xl text-3xl">2024</span>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <section class="h-screen w-full snap-start snap-always flex flex-col justify-center items-center px-4 relative">
+        <div class="w-full h-[85vh] bg-glass backdrop-blur-2xl border border-white/10 rounded-[2.5rem] overflow-hidden flex flex-col shadow-2xl animate-on-scroll">
+          
+          <div class="h-[45%] w-full relative">
+            <img src="../innerWebsite/media/images/Preview/traning.png" class="w-full h-full object-cover" alt="Training">
+            <div class="absolute inset-0 bg-gradient-to-t from-[#1e1e1e] to-transparent"></div>
+          </div>
+
+          <div class="h-[55%] p-8 flex flex-col justify-center bg-[#1e1e1e]/60">
+            <div class="text-accent font-bold tracking-[0.2em] uppercase text-3xl mb-2">Project 03</div>
+            <h2 class="font-display font-bold text-6xl leading-none mb-4">Training Hub</h2>
+            <p class="text-4xl text-white/60 leading-relaxed mb-6">
+              Connecting students with jobs. An <b class="text-white">MVC Platform</b> using Ruby on Rails.
+            </p>
+            <div class="flex gap-3">
+              <span class="px-4 py-2 bg-white text-black rounded-xl font-bold text-3xl">Rails</span>
+              <span class="px-4 py-2 border border-white/30 rounded-xl text-3xl">2023</span>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <section class="h-screen w-full snap-start snap-always flex flex-col justify-center items-center px-4 relative">
+        <div class="w-full h-[85vh] bg-glass backdrop-blur-2xl border border-white/10 rounded-[2.5rem] overflow-hidden flex flex-col shadow-2xl animate-on-scroll">
+          
+          <div class="h-[45%] w-full relative bg-black flex items-center justify-center overflow-hidden">
+             <div class="absolute inset-0 bg-gradient-to-br from-gray-900 to-black"></div>
+             <i class="fa-brands fa-github text-[20rem] text-white/5 rotate-12 absolute -right-10"></i>
+             <i class="fa-brands fa-github text-[8rem] text-white animate-float relative z-10"></i>
+             <div class="absolute inset-0 bg-gradient-to-t from-[#1e1e1e] to-transparent"></div>
+          </div>
+
+          <div class="h-[55%] p-8 flex flex-col justify-center bg-[#1e1e1e]/60">
+            <div class="text-accent font-bold tracking-[0.2em] uppercase text-3xl mb-2">The Archive</div>
+            <h2 class="font-display font-bold text-6xl leading-none mb-4">More on GitHub</h2>
+            <p class="text-4xl text-white/60 leading-relaxed mb-6">
+              Explore the rest of my work, source code, experimental projects, and open source contributions.
+            </p>
+            <div class="flex justify-start">
+              <a href="https://github.com/Osama-Alzahrani" target="_blank" class="px-8 py-4 bg-white text-black rounded-2xl font-bold text-3xl hover:bg-accent hover:scale-105 transition-all flex items-center gap-3">
+                Visit Profile <i class="fa-solid fa-arrow-right"></i>
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <section id="education" class="h-screen w-full snap-start snap-always flex flex-col justify-center items-center px-6 relative text-center">
+        
+        <div class="animate-on-scroll">
+          <i class="fa-solid fa-graduation-cap text-8xl text-accent mb-6 animate-float"></i>
+          <h2 class="font-display font-bold text-7xl mb-6">Education</h2>
+          
+          <div class="mt-8 space-y-4">
+            <div class="text-5xl font-bold">Computer Science</div>
+            <div class="text-4xl text-white/60">Qassim University</div>
+            <div class="inline-block mt-6 px-8 py-3 bg-green-500/20 text-green-400 border border-green-500/30 rounded-full font-bold text-2xl">GPA: Excellent <sup>First Class</sup></div>
+          </div>
+        </div>
+
+        <div class="absolute bottom-96 w-full px-6 animate-on-scroll delay-100">
+          <div class="pt-8 border-t border-white/10 w-full max-w-lg mx-auto">
+            <p class="text-3xl text-white/50 mb-4">Have an idea?</p>
+            <a href="mailto:osama.aalzahranii@gmail.com" class="font-display font-bold text-6xl border-b-4 border-accent hover:text-accent transition-colors">Let's Talk.</a>
+          </div>
+        </div>
+
+      </section>
+
+    </main>
+
+    <div class="fixed bottom-[10vh] w-2/3 left-1/2 -translate-x-1/2 z-50">
+      <div class="flex justify-between w-full gap-16 p-8 bg-black/60 backdrop-blur-xl border border-white/20 rounded-full shadow-2xl">
+        <a href="https://github.com/Osama-Alzahrani" target="_blank" class="w-16 h-16 flex items-center justify-center rounded-full bg-white/10 text-white text-[6vw] hover:bg-accent hover:text-black transition-all duration-300 active:scale-95">
+          <i class="fa-brands fa-github"></i>
+        </a>
+        <a href="https://www.linkedin.com/in/osama-alzahrani/" target="_blank" class="w-16 h-16 flex items-center justify-center rounded-full bg-white/10 text-white text-[6vw] hover:bg-accent hover:text-black transition-all duration-300 active:scale-95">
+          <i class="fa-brands fa-linkedin-in"></i>
+        </a>
+        <a href="mailto:osama.aalzahranii@gmail.com" class="w-16 h-16 flex items-center justify-center rounded-full bg-white/10 text-white text-[6vw] hover:bg-accent hover:text-black transition-all duration-300 active:scale-95">
+          <i class="fa-solid fa-envelope"></i>
+        </a>
+      </div>
+    </div>
+
+    <script>
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.remove('opacity-0', 'translate-y-10', 'scale-95');
+            entry.target.classList.add('opacity-100', 'translate-y-0', 'scale-100');
+          } else {
+            entry.target.classList.add('opacity-0', 'translate-y-10', 'scale-95');
+            entry.target.classList.remove('opacity-100', 'translate-y-0', 'scale-100');
+          }
+        });
+      }, { threshold: 0.2 });
+
+      document.querySelectorAll('.animate-on-scroll').forEach((el) => {
+        el.classList.add('transition-all', 'duration-700', 'ease-out', 'opacity-0', 'translate-y-10', 'scale-95');
+        observer.observe(el);
+      });
+    </script>
   </body>
 </html>

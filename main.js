@@ -261,14 +261,14 @@ function smoothCameraTransition(targetPosition, duration = 2000) {
 let cameraRotationPosition;
 
 function cameraToRotation() {
+  if (cameraMoving) {
+    return;
+  }
   params.computerActive = false;
   params.cameraAngle = 0;
   controller.control.minDistance = 0.1;
   $("#webgl").css("pointer-events", "auto");
 
-  if (cameraMoving) {
-    return;
-  }
 
   cameraRotating = false;
 
@@ -383,7 +383,7 @@ window.addEventListener("click", (event) => {
       deskLampONOFF();
     }
   } else {
-    console.log("Clicked on empty space");
+    console.log("Clicked on empty space",params.computerActive);
     if (params.computerActive) {
       cameraToRotation();
       $("#UI").show();

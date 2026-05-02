@@ -12,7 +12,317 @@ body {
   }
   to {
     opacity: 1;
-    scale: 1;
+    scale: 1;a/* Smooth scrolling for the entire page */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1a1a1a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #4a4a4a;
+  border-radius: 5px;
+  transition: background 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #666;
+}
+
+/* Navbar transitions */
+.navbar {
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  backdrop-filter: blur(10px);
+  background: rgba(33, 37, 41, 0.95) !important;
+}
+
+.nav-link {
+  position: relative;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.nav-link::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: translateX(-50%);
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+  width: 80%;
+}
+
+.nav-link:hover {
+  transform: translateY(-2px);
+  color: #667eea !important;
+}
+
+/* Container sections */
+.container > div {
+  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Images with smooth zoom effect */
+img {
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 8px;
+}
+
+img:hover {
+  transform: scale(1.02);
+  box-shadow: 0 20px 40px rgba(102, 126, 234, 0.2);
+}
+
+/* Links smooth transition */
+a {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  color: #667eea;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #764ba2;
+  transform: translateX(3px);
+  display: inline-block;
+}
+
+/* Scroll reveal animations */
+.disappear {
+  opacity: 0;
+  transform: translateY(50px) scale(0.95);
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.disappear.visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.appear-disappear-normal {
+  opacity: 0;
+  transform: translateY(60px);
+  transition: all 0.9s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.appear-disappear-normal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.appear-disappear {
+  opacity: 0;
+  transform: translateX(-50px);
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.appear-disappear.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Stagger animation for project items */
+.appear-disappear:nth-child(1) {
+  transition-delay: 0.1s;
+}
+.appear-disappear:nth-child(2) {
+  transition-delay: 0.2s;
+}
+.appear-disappear:nth-child(3) {
+  transition-delay: 0.3s;
+}
+.appear-disappear:nth-child(4) {
+  transition-delay: 0.4s;
+}
+.appear-disappear:nth-child(5) {
+  transition-delay: 0.5s;
+}
+
+/* Card-like containers */
+.text-white.rounded {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.text-white.rounded:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(102, 126, 234, 0.3);
+  transform: translateY(-5px);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+}
+
+/* HR lines */
+hr {
+  opacity: 0.3;
+  transition: all 0.3s ease;
+  border: none;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+}
+
+.text-white.rounded:hover hr {
+  opacity: 0.6;
+  background: linear-gradient(90deg, transparent, rgba(102, 126, 234, 0.8), transparent);
+}
+
+/* Border bottom animations */
+.border-bottom {
+  border-bottom: 2px solid transparent !important;
+  background: linear-gradient(90deg, #667eea 0%, #764ba2 100%) left bottom no-repeat;
+  background-size: 100% 2px;
+  padding-bottom: 0.5rem;
+  animation: borderGlow 2s ease-in-out infinite;
+}
+
+@keyframes borderGlow {
+  0%,
+  100% {
+    background-size: 100% 2px;
+    opacity: 1;
+  }
+  50% {
+    background-size: 90% 2px;
+    opacity: 0.8;
+  }
+}
+
+/* Icons animation */
+i,
+.fa-brands,
+.fa-solid {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+table tr {
+  transition: all 0.3s ease;
+}
+
+table tr:hover i,
+table tr:hover .fa-brands,
+table tr:hover .fa-solid {
+  transform: scale(1.3) rotate(5deg);
+  color: #667eea;
+}
+
+table tr:hover {
+  background: rgba(102, 126, 234, 0.1);
+  transform: translateX(10px);
+}
+
+/* Date badge */
+.creation-date {
+  display: inline-block;
+  padding: 4px 12px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 20px;
+  font-size: 0.85em;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.creation-date:hover {
+  transform: scale(1.1);
+  box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+}
+
+/* Navbar brand animation */
+.navbar-brand {
+  transition: all 0.3s ease;
+  font-weight: bold;
+}
+
+.navbar-brand:hover {
+  transform: scale(1.05);
+  text-shadow: 0 0 20px rgba(102, 126, 234, 0.5);
+}
+
+/* Button animation */
+.navbar-toggler {
+  transition: all 0.3s ease;
+  border: none;
+}
+
+.navbar-toggler:hover {
+  transform: rotate(90deg);
+}
+
+/* Subtle background gradient animation */
+body {
+  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+  background-attachment: fixed;
+}
+
+/* Add subtle glow to sections */
+#education,
+#projects,
+#contact {
+  position: relative;
+}
+
+#education::before,
+#projects::before,
+#contact::before {
+  content: "";
+  position: absolute;
+  top: -50px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #667eea, transparent);
+  animation: slideWidth 3s ease-in-out infinite;
+}
+
+@keyframes slideWidth {
+  0%,
+  100% {
+    width: 100px;
+    opacity: 0.5;
+  }
+  50% {
+    width: 200px;
+    opacity: 1;
+  }
+}
+
+/* Smooth entrance for entire page */
+body {
+  animation: fadeIn 0.6s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* CV subContent */
+.CV-subContent {
+  opacity: 0.8;
+  transition: opacity 0.3s ease;
+}
+
+.text-white.rounded:hover .CV-subContent {
+  opacity: 1;
+}
+
   }
 }
 

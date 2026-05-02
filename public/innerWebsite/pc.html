@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Make Sure to find problem with js-dos css that make taskbar not work correctly-->
+    <!-- Required meta tags -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
@@ -8,9 +10,15 @@
     <link rel="stylesheet" href="./css/jquery-ui.min.css">
     <link rel="stylesheet" href="./css/MyWin7.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="https://v8.js-dos.com/latest/js-dos.css">
 
-    <script src="../js/jquery-3.7.1.min.js"></script>
-    <script src="../js/jquery-ui.min.js"></script>
+
+    <!-- js-dos Emulator -->
+    <!-- <script src="https://v8.js-dos.com/latest/js-dos.js"></script> -->
+
+    <!-- jQuery and jQuery UI -->
+    <script src="./js/jquery-3.7.1.min.js"></script>
+    <script src="./js/jquery-ui.min.js"></script>
     <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
     <!-- Moment.js (required for older FullCalendar versions) -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
@@ -18,163 +26,178 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css"/>
     <!-- FullCalendar JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js"></script>
+
     
 </head>
 <body>
     <div id="active-container">
-            <div id="myCV" class="top-bar-app window active glass " style="position: absolute;">
-                <!-- <div class="top-bar-btns">
-                    <div class="hide-btn "></div>
-                    <div class="resize-btn "></div>
-                    <div class="close-btn "></div>
-                </div> -->
-                    <div id="dragger" class="title-bar" >
-                      <div class="title-bar-text" style="display: flex; justify-items: center;"><img src="./media/images/cv.png" width="16" style="margin-right: 5px;"> Osama Alzahrani CV</div>
-                      <div class="title-bar-controls">
+            <div id="dos-container" class="dos-root">
+                <link rel="stylesheet" href="https://v8.js-dos.com/latest/js-dos.css">
+            </div>
+            <div class="desktop-grid">
+                <!-- 8 cells for demonstration; add more as needed -->
+                <div class="desktop-cell dropzone" id="cell-1">
+                    <div class="desktop-icon selectable" id="icon-1" run="myCV" draggable="true">
+                        <img src="./media/images/cv.png" alt="Folder" draggable="false" />
+                        <span>My CV</span>
+                    </div>
+                </div>
+                <div class="desktop-cell dropzone" id="cell-2">
+                    <div class="desktop-icon selectable" id="icon-2" run="digger" name="Digger" game="digger" draggable="true">
+                        <img src="./media/images/digger-icon.png" alt="Folder" draggable="false" />
+                        <span>Digger</span>
+                    </div>
+                </div>
+                <div class="desktop-cell dropzone" id="cell-3">
+                    <div class="desktop-icon selectable" id="icon-3" run="doom" name="Doom" game="doom" draggable="true">
+                        <img src="./media/images/doom-icon.png" alt="Folder" draggable="false" />
+                        <span>Doom</span>
+                    </div>
+                </div>
+                <div class="desktop-cell dropzone" id="cell-4">
+                    <div class="desktop-icon selectable" id="icon-4" run="nts" name="Need for Speed" game="nts" draggable="true">
+                        <img src="./media/images/nfs-icon.jpg" alt="Folder" draggable="false" />
+                        <span>Need for speed</span>
+                    </div>
+                </div>
+                <div class="desktop-cell dropzone" id="cell-4"></div>
+                <div class="desktop-cell dropzone" id="cell-5"></div>
+                <div class="desktop-cell dropzone" id="cell-6"></div>
+                <div class="desktop-cell dropzone" id="cell-7"></div>
+                <div class="desktop-cell dropzone" id="cell-8"></div>
+            </div>
+            <!-- Updated full HTML with reflected CV content -->
+            <div id="myCV" class="top-bar-app window active glass app" hidden icon="cv.png" style="position: absolute; top: 0;">
+                <div id="dragger" class="title-bar">
+                    <div class="title-bar-text" style="display: flex; justify-items: center;"><img src="./media/images/cv.png" width="16" style="margin-right: 5px; "> <span id="cv-window-title">Osama Alzahrani CV</span></div>
+                    <div class="title-bar-controls">
                         <button aria-label="Minimize" class="hide-btn"></button>
                         <button aria-label="Maximize" class="maximize-btn"></button>
                         <button aria-label="Close" class="close-btn"></button>
-                      </div>
                     </div>
-                    <div id="CV-body" class="window-body glass" style="height: 90vh;">
-                        <ul role="menubar">
-                            <li role="menuitem" tabindex="0">File</li>
-                            <li role="menuitem" tabindex="0">Edit</li>
-                            <li role="menuitem" tabindex="0">View</li>
-                            <li role="menuitem" tabindex="0">Help</li>
-                          </ul>
-                        <div class="CV-main">
-                            <div id="CV-Sidebar1">
-                                <ul id="nav-list">
-                                     <li class="nav-list-main">Navigation</li>
-                                     <li id="CV-personal-info_Nav" class="nav-list-item"><span>Personal Information</span></li>
-                                     <li id="CV-Education_Nav" class="nav-list-item"><span>Education</span></li>
-                                     <li id="CV-Projects_Nav" class="nav-list-item"><span>Projects</span></li>
-                                     <li id="CV-Contact_Nav" class="nav-list-item"><span>Contact Information</span></li>
-                                </ul>
+                </div>
+                <div id="CV-body" class="window-body glass" style="height: 90vh;">
+                    <ul role="menubar">
+                        <li role="menuitem" tabindex="0">File</li>
+                        <li role="menuitem" tabindex="0">Edit</li>
+                        <li role="menuitem" tabindex="0">View</li>
+                        <li role="menuitem" tabindex="0">Help</li>
+                    </ul>
+                    <div class="CV-main">
+                        <div id="CV-Sidebar1">
+                            <ul id="nav-list">
+                                <li class="nav-list-main">Navigation</li>
+                                <li id="CV-personal-info_Nav" class="nav-list-item"><span>Personal Information</span></li>
+                                <li id="CV-Experience_Nav" class="nav-list-item"><span>Experience</span></li>
+                                <li id="CV-Projects_Nav" class="nav-list-item"><span>Projects</span></li>
+                                <li id="CV-Education_Nav" class="nav-list-item"><span>Education</span></li>
+                                <li id="CV-Contact_Nav" class="nav-list-item"><span>Contact Information</span></li>
+                            </ul>
+                        </div>
+
+                        <div id="CV-Content" class="has-scrollbar">
+
+                            <!-- PERSONAL INFORMATION -->
+                            <div id="CV-personal-info" class="center columns">
+                                <span class="CV-Title" nav-id="CV-personal-info" style="margin: 0% !important;">Personal Information</span>
+                                <h1 id="cv-name" style="font-size: 27px; font-weight: bold; margin-block: 2.5%;">Osama Alzahrani</h1>
+                                <img id="cv-profile-img" src="./media/images/CV/profile.jpg" width="200" style="border: 5px solid;">
+                                <p id="cv-bio" class="context" style="width: 50%;">
+                                    <b>Osama Alzahrani</b> is a junior <strong>Software Developer</strong> with a solid foundation in computer science
+                                    and a growing interest in systems programming. Motivated to learn and develop strong practical skills,
+                                    I am eager to contribute to building reliable, efficient software systems. I value teamwork, problem-solving,
+                                    and continuous improvement, and I am committed to delivering high-quality, impactful solutions.
+                                </p>
                             </div>
-                            <div id="CV-Content" class="has-scrollbar">
-                                <div id="CV-personal-info" class="center columns">
-                                    <span class="CV-Title">
-                                        Personal Information
-                                    </span>
-                                    <!-- <hr class="CV-hr"> -->
-                                    <h2>Osama Alzahrani</h2>
-                                    <img src="./media/images/CV/profile.jpg" width="200" style="border: 5px solid;">
 
-                                    <p class="context" style="width: 50%;">
-                                        I’m Osama Alzahrani, a computer science student who loves exploring technology.
-                                        I  enjoy web development and building applications.
-                                        I like turning ideas into user-friendly projects, and I’m always seeking new challenges to learn more.
-                                        My creativity and problem-solving skills help me work well in a team. Right now,
-                                        I’m focused on improving my skills by taking online courses, building personal projects, and experimenting with new technologies.
-                                        My goal is to use my knowledge and curiosity to create solutions that truly make a difference.
-                                    </p>
-                                </div>
-                                <div id="CV-Education" class="center columns">
-                                    <span class="CV-Title">
-                                        Education
-                                    </span>
-                                    <!-- <hr class="CV-hr"> -->
-                                    <p class="context" style="width: 50%;">
-                                        Bachelor of Computer science Qassim university Current GPA : Excellent.<br />
-                                        <span class="CV-subContent">My coursework covers programming languages, data structures, algorithms, web development, artificial intelligence, and other courses.</span>
-                                    </p>
-                                    
-                                </div>
-                                <div id="CV-Projects" class="center columns">
-                                    <span class="CV-Title">
-                                        Projects
-                                    </span>
-                                    <!-- <hr class="CV-hr"> -->
-                                    <div class="context" style="display: flex; flex-direction: column; gap: 2vh; width: 50%;">
-                                        <div>
-                                            <b>My 3D Portfolio Website</b><br />
-                                            <i>using HTML,CSS, JS, Three.js</i> </br>
-                                            Built an interactive 3D environment to showcase personal projects, featuring real-time rendering, dynamic animations, and user-friendly navigation for an engaging user experience.                                            <br>
-                                            <p class="creation-date">2025</p>
-                                            <img src="./media/images/Preview/portfolio.png" class="can-preview preview" style="width:100%">
-                                            
-                                        </div>
-                                        <div>
-                                            <b>Jadwaly Chrome Extenstion</b><br />
-                                            <i>using JS, HTML,CSS</i> </br>
-                                            Developed a Chrome extension to simplify university course registration with a user-friendly interface and an organized table layout for easy scheduling and planning.
-                                            <br>
-                                            <p class="creation-date">2024</p>
-                                            <img src="./media/images/Preview/Jadwaly-preview.png" class="can-preview preview" style="width:100%">
-                                            
-                                        </div>
-                                        <div>
-                                            <b>Training Experience Website</b><br />
-                                            <i>using Ruby on rails</i> </br>
-                                            website helps students share their training experiences to guide and support others. by using MVC design pattern.
-                                            <br>
-                                            <p class="creation-date">2023</p>
-                                            <img src="./media/images/Preview/traning.png" class="can-preview preview" style="width:100%">
-                                        </div>
-                                        <div>
-                                            <b>Dynamic background</b><br />
-                                            <i>Background based on Web (HTML,CSS,JS) using Wallpaper Engine</i> </br>
-                                            The background is synced with real life data using "OpenWeather" API, some objects in the background are synced with the API.
-                                            <br>
-                                            <p class="creation-date">2022</p>
-                                            <img src="./media/images/Preview/background.png" class="can-preview preview" style="width:100%">
-                                            
-                                        </div>
-                                        <div>
-                                            <b>Other project</b><br />
-                                            And other projects in my <a href="https://github.com/Osama-Alzahrani" target="_blank">Github</a> repository                                            
-                                        </div>
+                            <!-- EXPERIENCE -->
+                            <div id="CV-Experience" class="center columns">
+                                <span class="CV-Title" nav-id="CV-Experience">Experience</span>
 
-                                    </div>
+                                <div class="context" style="width: 50%;">
+                                    <b>Full-stack Web Developer</b><br />
+                                    <i>Node Technology, Riyadh, Saudi Arabia</i><br />
+                                    <ul>
+                                        <li>Full-stack development using ASP.NET Core and Angular, React, Vue, and other frameworks.</li>
+                                        <li>Developing a government portal using Vue.js with a focus on responsive, user-friendly UI.</li>
+                                    </ul>
+                                    <p class="creation-date">Oct 2025 – Present</p>
                                 </div>
-                                <div id="CV-Contact" class="center columns">
-                                    <span class="CV-Title">
-                                        Contact Information
-                                    </span>
-                                    <!-- <hr class="CV-hr"> -->
-                                    <div class="context" style="display: flex; flex-direction: column; gap: 2vh; width: 25%;">
-                                        <table>
-                                             <tr>
-                                                 <td><span>LinkedIn</span> </td>
-                                                 <td style="display: flex; align-items: center;"><box-icon name='linkedin-square' type='logo' ></box-icon> <a href="https://www.linkedin.com/in/osama-alzahrani/">osama-alzahrani</a></td>
-                                             </tr>
-                                             <tr>
-                                                 <td>Email</td>
-                                                 <td style="display: flex; align-items: center;"><box-icon name='envelope' type='solid' ></box-icon><a href="mailto:osama.aalzahranii@gmail.com">osama.aalzahranii@gmail.com</a></td>
-                                             </tr>
-                                             <tr>
-                                                 <td>Address</td>
-                                                 <td style="display: flex; align-items: center;"><box-icon name='location-plus' type='solid' ></box-icon> Riyadh, Saudi Arabia</td>
-                                             </tr>
-                                             <tr>
-                                                 <td>CoderHub</td>
-                                                 <td style="display: flex; align-items: center;"><box-icon name='component' type='solid' ></box-icon><a href="https://profile.satr.codes/osama2581/public/overview" target="_blank">@osama2581</a></td>
-                                             </tr>
-                                             <tr>
-                                                 <td>Github</td>
-                                                 <td style="display: flex; align-items: center;"><box-icon name='github' type='logo' ></box-icon><a href="https://github.com/Osama-Alzahrani" target="_blank">Osama-Alzahrani</a></td>
-                                             </tr>
-                                        </table>
-                                    </div>
+                                <hr class="CV-Sperater">                                
+                                <div class="context" style="margin-top: 0; width: 50%;">
+                                    <b>Full-stack Web Developer Intern</b><br />
+                                    <i>Node Technology, Riyadh, Saudi Arabia</i><br />
+                                    <ul>
+                                        <li>Built backend services using ASP.NET Core with Clean Architecture for scalability and maintainability.</li>
+                                        <li>Implemented and consumed RESTful APIs with focus on performance, security, and error handling.</li>
+                                        <li>Participated in debugging, profiling, and optimizing backend logic to improve efficiency.</li>
+                                    </ul>
+                                    <p class="creation-date">Jan 2025 – Jun 2025</p>
                                 </div>
                             </div>
-                            <div id="CV-Sidebar2">
-                                <div class="CV-time-section">                                    
-                                    <p style="text-align: center; font-weight: bold; font-size: 25px;">Time Now</p>
-                                    <p id="CV_time"><span id="time-h" class="time-cell"></span>:<span id="time-min" class="time-cell"></span> <span id="time-type" class="time-cell"></span></p>
-                                </div>
-                                <div id="CV-Calendar-section">
-                                    <p style="text-align: center; font-weight: bold; font-size: 25px;">Calendar</p>
-                                    <div id="calendar"></div>
-                                </div>
 
-                                
+                            <!-- PROJECTS -->
+                            <div id="CV-Projects" class="center columns">
+                                <span class="CV-Title" nav-id="CV-Projects">Projects</span>
+                                <div id="cv-projects-list" class="context" style="display: flex; flex-direction: column; gap: 2vh; width: 50%;">
+                                </div>
+                            </div>
+
+                            <!-- EDUCATION -->
+                            <div id="CV-Education" class="center columns">
+                                <span class="CV-Title" nav-id="CV-Education">Education</span>
+                                <img src="https://www.qu.edu.sa/wp-content/uploads/2025/04/qu-logo-v4.webp" width="350" style="margin: 2vh;">
+                                <p id="cv-education-details" class="context" style="width: 50%;">
+                                    <strong>Bachelor's Degree in Computer Science</strong>, Qassim University<br>
+                                    GPA: 4.88/5 — <span class="CV-subContent">First Class Honor</span><br>
+                                    Jul 2020 – Jun 2025
+                                </p>
+                            </div>
+
+                            <!-- CONTACT INFORMATION -->
+                            <div id="CV-Contact" class="center columns">
+                                <span class="CV-Title" nav-id="CV-Contact">Contact Information</span>
+                                <div class="context" style="display: flex; flex-direction: column; gap: 2vh; width: 25%;">
+                                    <table>
+                                        <tr>
+                                            <td><span>LinkedIn</span></td>
+                                            <td style="display: flex; align-items: center;"><box-icon name='linkedin-square' type='logo'></box-icon> <a id="cv-linkedin" href="https://www.linkedin.com/in/osama-alzahrani/" target="_blank">osama-alzahrani</a></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Email</td>
+                                            <td style="display: flex; align-items: center;"><box-icon name='envelope' type='solid'></box-icon><a id="cv-email" href="mailto:osama.aalzahranii@gmail.com" target="_blank">osama.aalzahranii@gmail.com</a></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Address</td>
+                                            <td style="display: flex; align-items: center;"><box-icon name='location-plus' type='solid'></box-icon> <span id="cv-address">Riyadh, Saudi Arabia</span></td>
+                                        </tr>
+                                        <tr id="cv-coderhub-row">
+                                            <td>CoderHub</td>
+                                            <td style="display: flex; align-items: center;"><box-icon name='component' type='solid'></box-icon><a id="cv-coderhub" href="https://profile.satr.codes/osama2581/public/overview" target="_blank">@osama2581</a></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Github</td>
+                                            <td style="display: flex; align-items: center;"><box-icon name='github' type='logo'></box-icon><a id="cv-github" href="https://github.com/Osama-Alzahrani" target="_blank">Osama-Alzahrani</a></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="CV-Sidebar2">
+                            <div class="CV-time-section">
+                                <p style="text-align: center; font-weight: bold; font-size: 25px;margin-block: 10px;">Time Now</p>
+                                <p id="CV_time"><span id="time-h" class="time-cell"></span>:<span id="time-min" class="time-cell"></span> <span id="time-type" class="time-cell"></span></p>
+                            </div>
+                            <div id="CV-Calendar-section">
+                                <p style="text-align: center; font-weight: bold; font-size: 25px;">Calendar</p>
+                                <div id="calendar"></div>
                             </div>
                         </div>
                     </div>
+                </div>
             </div>
+
 
             <!-- <div class="app-content">
                 <h2>My CV</h2>
@@ -223,22 +246,6 @@
             </li>
           </ul>
     </div>
-    <div class="desktop-grid">
-        <!-- 8 cells for demonstration; add more as needed -->
-        <div class="desktop-cell dropzone" id="cell-1">
-            <div class="desktop-icon" id="icon-1" draggable="true">
-                <img src="./media/images/cv.png" alt="Folder" draggable="false" />
-                <span>My CV</span>
-            </div>
-        </div>
-        <div class="desktop-cell dropzone" id="cell-2"></div>
-        <div class="desktop-cell dropzone" id="cell-3"></div>
-        <div class="desktop-cell dropzone" id="cell-4"></div>
-        <div class="desktop-cell dropzone" id="cell-5"></div>
-        <div class="desktop-cell dropzone" id="cell-6"></div>
-        <div class="desktop-cell dropzone" id="cell-7"></div>
-        <div class="desktop-cell dropzone" id="cell-8"></div>
-    </div>
     <div id="taskBar">
         <img id="start-menu-button" src="./media/images/start-menu.png">
         <div id="pinned-apps">
@@ -256,10 +263,37 @@
             <div id="showDesktop"></div>
             <div id="time"><span id="task-bar-time"></span><br><span id="task-bar-date"></span></div>
             <div id="statusIcons">
-                <img id="audio" class="statusIcon" src="./media/images/audio-volume-high-panel.png">
-                <img id="audio" class="statusIcon" src="./media/images/gnome-netstatus-idle.png">
-                <img id="audio" style="width: 1vw;" src="./media/images/indicator-applet.png">
+                <img id="audio"  width="16" class="statusIcon" src="./media/images/audio-volume-high-symbolic.svg">
+                <img id="network" class="statusIcon" src="./media/images/gnome-netstatus-idle.png">
+                <img id="firewall" style="width: 1vw;" src="./media/images/indicator-applet.png">
                 <div id="tray"><box-icon name='caret-up' color="white" size="16px"></box-icon></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Audio Settings Popup -->
+    <div id="audio-settings" class="audioPopup">
+        <div class="window active" style="max-width: 300px;">
+            <div class="window-body" style="background-color: #ffffff; margin-top: 6px;">
+                <div class="audio" >
+                    <div class="audio-icon" style="margin-top: 10px;">
+                        <img src="./media/images/speakers.png" width="32" alt="">
+                    </div>
+                    <div class="vertical-range-wrapper">
+                        <input type="range" id="volumeControl"
+                            class="vertical-range"
+                            style="z-index: 1; padding: -100px 50px !important;"
+                            min="0" max="100" value="100" step="1" orient="vertical">
+                        <img src="./media/images/audioGuid.png" class="vertical-range"  style="left: 23px !important; z-index: 0;" alt="">
+                    </div>
+                    <div style="padding-block: 15px; margin-top: 10px;">
+                        <img id="audio-changer" src="./media/images/audio-volume-high.png" width="32" alt="">
+                    </div>
+                    <div class="audio-mixer">
+                        <label for="muteCheckbox">Mixer</label>
+                        <input type="checkbox" id="muteCheckbox">
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -305,7 +339,7 @@
             <img id="profileFrame" src="./media/images/FyaPV.png">
             <img id="profileImage" src="./media/images/profile.png">
             <ul>
-                <li>Osama Alzahrani</li>
+                <li id="cv-name-menu">Osama Alzahrani</li>
                 <li>Documents</li>
                 <li>Picture</li>
                 <li>Music</li>
@@ -321,7 +355,7 @@
 
             <div id="power">
                 <div id="powerText">
-                    <div id="shutdown">Shut down</div>
+                    <div id="shutdown" style="width: 100%;">Shut down</div>
                 </div>
                 <div id="changePower"><box-icon name='caret-right' color="white" size="16px"></box-icon></div>
             </div>
@@ -369,6 +403,7 @@
     <script type="text/javascript" src="./js/cursor.js"></script>
     <script type="text/javascript" src="./js/desktopGrid.js"></script>
     <script type="text/javascript" src="./js/runapps.js"></script>
+    <script type="text/javascript" src="./js/service.js"></script>
     <script type="text/javascript" src="./js/cv.js"></script>
 </body>
 </html>

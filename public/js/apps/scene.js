@@ -79,7 +79,7 @@ export function createScene(scene,monitor){
 
     let isItFinished = false;
     
-    loader.load( '../../model/desktop/last.gltf', function ( gltf ) {
+    loader.load( '../../model/desktop/v2/MySetup.gltf', function ( gltf ) {
         isItFinished = true;
         light.children[0].material.fog = true;
         console.log(light.children[0]);
