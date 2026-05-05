@@ -1,8 +1,7 @@
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { RectAreaLightHelper } from 'three/examples/jsm/Addons.js';
-import { startAnimation } from '../../../main.js';
-export function createScene(scene,monitor){
+export function createScene(scene, monitor, onComponentLoaded) {
     const ambientLight = new THREE.AmbientLight(0xffffff, 0.075); // Soft white light
     scene.add(ambientLight);
 
@@ -203,7 +202,7 @@ export function createScene(scene,monitor){
             
         }
 
-        startAnimation();
+        onComponentLoaded("gltf");
 
     }, undefined, function ( error ) {
 

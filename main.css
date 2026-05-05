@@ -6,83 +6,71 @@
   padding: 0;
 }
 
+html, body {
+  overflow: hidden;
+}
+
 body {
   background-color: #1c1c1c;
 }
 
 #UI {
   position: absolute;
-  color: white;
-  margin: 10px;
+  margin: 12px;
   z-index: 2;
-  background: linear-gradient(145deg, #1c1c1c, #242424);
-  width: 245px;
-  height: 90px;
-  text-align: center;
+  background: rgba(10, 10, 10, 0.6);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+  padding: 6px;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 16px;
-  font-weight: bold;
-  border-radius: 15px;
-  border: 3px solid rgba(148, 148, 148, 0.6);
-  box-shadow: 0 0px 10px rgba(255, 255, 255, 0.3);
-  backdrop-filter: blur(5px);
-  transition: all 0.3s ease-in-out;
-  padding: 10px;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 136px;
 }
 
-#UI:hover {
-  box-shadow: 0 5px 8px rgba(0, 48, 73, 0.5),
-    inset 0 0px 8px rgba(255, 255, 255, 0.15);
-  -webkit-transform: translateY(-1px);
-  -moz-transform: translateY(-1px);
-  -ms-transform: translateY(-1px);
-  -o-transform: translateY(-1px);
-}
-
-#UI-Buttons {
-  display: flex;
-  justify-content: space-evenly;
-  width: 100%;
+.ui-divider {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.07);
+  margin: 2px 8px;
 }
 
 .ui-item {
-  background: linear-gradient(145deg, #0077b6, #00a8e8);
-  border: 2px solid rgba(255, 255, 255, 0.2);
-  width: 45px; /* Slightly wider for better usability */
-  height: 45px;
-  color: white;
-  font-size: 16px;
-  font-weight: bold;
-  text-align: center;
-  cursor: pointer;
-  padding: 8px;
-  border-radius: 12px;
   display: flex;
   align-items: center;
-  justify-content: center;
-  transition: all 0.3s ease-in-out;
-  box-shadow: 0 4px 10px rgba(0, 138, 255, 0.3),
-    inset 0 2px 4px rgba(255, 255, 255, 0.1);
+  gap: 10px;
+  padding: 9px 12px;
+  border-radius: 9px;
+  cursor: pointer;
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 13px;
+  font-weight: 500;
+  font-family: system-ui, -apple-system, sans-serif;
+  letter-spacing: 0.2px;
+  border: 1px solid transparent;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+  user-select: none;
 }
 
 .ui-item:hover {
-  background: linear-gradient(145deg, #00a8e8, #48cae4);
-  transform: scale(1.1);
-  box-shadow: 0 6px 15px rgba(0, 138, 255, 0.5);
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.9);
 }
 
 .ui-item:active {
-  transform: scale(0.95);
-  box-shadow: 0 2px 6px rgba(0, 138, 255, 0.3);
-  background: linear-gradient(145deg, #0077b6, #0096c7);
+  background: rgba(255, 255, 255, 0.04);
 }
 
-#UI h2 {
-  font-size: 20px;
-  font-weight: bold;
-  font-family: "Courier New", Courier, monospace;
+.ui-item.ui-active {
+  background: rgba(0, 120, 255, 0.18);
+  color: #60a5fa;
+  border-color: rgba(96, 165, 250, 0.22);
+}
+
+.ui-item.ui-active box-icon {
+  filter: drop-shadow(0 0 5px rgba(96, 165, 250, 0.55));
 }
 
 /* HTML: <div class="loader"></div> */

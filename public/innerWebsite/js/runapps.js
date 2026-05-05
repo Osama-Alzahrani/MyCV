@@ -223,7 +223,7 @@ function removeFromRunningApps(id){
 
 // If page is loaded then run the app
 $(function(){
-    openApp('myCV',true,'cv.png','myCV');
+    openApp('myCV',true,'cv.webp','myCV');
 });
 
 

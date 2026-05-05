@@ -56,8 +56,9 @@ const controller = controls(camera.camera, app.renderer, {
 });
 const monitor = createMonitor(app.scene, {
   scale: new THREE.Vector3(0.1, 0.1, 1),
+  onLoad: componentLoaded,
 });
-const scene = createScene(app.scene, monitor);
+const scene = createScene(app.scene, monitor, componentLoaded);
 controller.control.target.set(0, 300, 10);
 console.log(controller.control);
 
@@ -299,12 +300,10 @@ function cameraToRotation() {
 }
 
 $("#CameraMode").click(function () {
-  // alert("CLICK")
-
   cameraRotating = cameraRotating ? false : true;
+  $(this).toggleClass("ui-active", !cameraRotating);
   if (cameraRotating) {
     cameraToRotation();
-    // controller.control.enabled = false;
   } else {
     cameraRotationPosition = camera.camera.position.clone();
     controller.control.enabled = true;
@@ -312,9 +311,8 @@ $("#CameraMode").click(function () {
   }
 });
 $("#DeskLight").click(function () {
-  // $(this).children().first().removeAttr("type");
-
   deskLampONOFF();
+  $(this).toggleClass("ui-active", params.deskLight);
 });
 $("#UI").click(function () {
   UIClicked = true;
@@ -398,14 +396,24 @@ $(document).ready(function () {
   console.log("ready!");
 });
 
-export function startAnimation() {
+let loadedCount = 0;
+const TOTAL_COMPONENTS = 2; // GLTF model + monitor iframe
+
+export function componentLoaded(source) {
+  loadedCount++;
+  console.log(`[loader] "${source}" ready — ${loadedCount}/${TOTAL_COMPONENTS}`);
+  if (loadedCount >= TOTAL_COMPONENTS) {
+    console.log("[loader] all components ready, starting animation");
+    startAnimation();
+  }
+}
+
+function startAnimation() {
   animate();
   setTimeout(() => {
     $("#loading-screen").addClass("fadeout-up-screen");
     cameraRotating = true;
   }, 500);
-  // $("#loading-screen").addClass("fadeout-up-screen")
-  // alert("Animation started");
 }
 
 function animate() {

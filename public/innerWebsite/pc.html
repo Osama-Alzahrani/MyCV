@@ -9,54 +9,42 @@
     <link rel="stylesheet" href="./css/7.css">
     <link rel="stylesheet" href="./css/jquery-ui.min.css">
     <link rel="stylesheet" href="./css/MyWin7.css">
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <link rel="stylesheet" href="https://v8.js-dos.com/latest/js-dos.css">
+    <link href='./css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="./css/js-dos.css">
 
 
-    <!-- js-dos Emulator -->
-    <!-- <script src="https://v8.js-dos.com/latest/js-dos.js"></script> -->
-
-    <!-- jQuery and jQuery UI -->
-    <script src="./js/jquery-3.7.1.min.js"></script>
-    <script src="./js/jquery-ui.min.js"></script>
-    <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
-    <!-- Moment.js (required for older FullCalendar versions) -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
     <!-- FullCalendar CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css"/>
-    <!-- FullCalendar JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js"></script>
+    <link rel="stylesheet" href="./css/fullcalendar.min.css"/>
 
     
 </head>
 <body>
     <div id="active-container">
             <div id="dos-container" class="dos-root">
-                <link rel="stylesheet" href="https://v8.js-dos.com/latest/js-dos.css">
             </div>
             <div class="desktop-grid">
                 <!-- 8 cells for demonstration; add more as needed -->
                 <div class="desktop-cell dropzone" id="cell-1">
                     <div class="desktop-icon selectable" id="icon-1" run="myCV" draggable="true">
-                        <img src="./media/images/cv.png" alt="Folder" draggable="false" />
+                        <img src="./media/images/cv.webp" alt="Folder" draggable="false" />
                         <span>My CV</span>
                     </div>
                 </div>
                 <div class="desktop-cell dropzone" id="cell-2">
                     <div class="desktop-icon selectable" id="icon-2" run="digger" name="Digger" game="digger" draggable="true">
-                        <img src="./media/images/digger-icon.png" alt="Folder" draggable="false" />
+                        <img src="./media/images/digger-icon.webp" alt="Folder" draggable="false" />
                         <span>Digger</span>
                     </div>
                 </div>
                 <div class="desktop-cell dropzone" id="cell-3">
                     <div class="desktop-icon selectable" id="icon-3" run="doom" name="Doom" game="doom" draggable="true">
-                        <img src="./media/images/doom-icon.png" alt="Folder" draggable="false" />
+                        <img src="./media/images/doom-icon.webp" alt="Folder" draggable="false" />
                         <span>Doom</span>
                     </div>
                 </div>
                 <div class="desktop-cell dropzone" id="cell-4">
                     <div class="desktop-icon selectable" id="icon-4" run="nts" name="Need for Speed" game="nts" draggable="true">
-                        <img src="./media/images/nfs-icon.jpg" alt="Folder" draggable="false" />
+                        <img src="./media/images/nfs-icon.webp" alt="Folder" draggable="false" />
                         <span>Need for speed</span>
                     </div>
                 </div>
@@ -67,9 +55,9 @@
                 <div class="desktop-cell dropzone" id="cell-8"></div>
             </div>
             <!-- Updated full HTML with reflected CV content -->
-            <div id="myCV" class="top-bar-app window active glass app" hidden icon="cv.png" style="position: absolute; top: 0;">
+            <div id="myCV" class="top-bar-app window active glass app" hidden icon="cv.webp" style="position: absolute; top: 0;">
                 <div id="dragger" class="title-bar">
-                    <div class="title-bar-text" style="display: flex; justify-items: center;"><img src="./media/images/cv.png" width="16" style="margin-right: 5px; "> <span id="cv-window-title">Osama Alzahrani CV</span></div>
+                    <div class="title-bar-text" style="display: flex; justify-items: center;"><img src="./media/images/cv.webp" width="16" style="margin-right: 5px; "> <span id="cv-window-title">Osama Alzahrani CV</span></div>
                     <div class="title-bar-controls">
                         <button aria-label="Minimize" class="hide-btn"></button>
                         <button aria-label="Maximize" class="maximize-btn"></button>
@@ -101,7 +89,7 @@
                             <div id="CV-personal-info" class="center columns">
                                 <span class="CV-Title" nav-id="CV-personal-info" style="margin: 0% !important;">Personal Information</span>
                                 <h1 id="cv-name" style="font-size: 27px; font-weight: bold; margin-block: 2.5%;">Osama Alzahrani</h1>
-                                <img id="cv-profile-img" src="./media/images/CV/profile.jpg" width="200" style="border: 5px solid;">
+                                <img id="cv-profile-img" src="./media/images/CV/profile.webp" width="200" height="200" loading="lazy" style="border: 5px solid;">
                                 <p id="cv-bio" class="context" style="width: 50%;">
                                     <b>Osama Alzahrani</b> is a junior <strong>Software Developer</strong> with a solid foundation in computer science
                                     and a growing interest in systems programming. Motivated to learn and develop strong practical skills,
@@ -146,7 +134,7 @@
                             <!-- EDUCATION -->
                             <div id="CV-Education" class="center columns">
                                 <span class="CV-Title" nav-id="CV-Education">Education</span>
-                                <img src="https://www.qu.edu.sa/wp-content/uploads/2025/04/qu-logo-v4.webp" width="350" style="margin: 2vh;">
+                                <img src="https://www.qu.edu.sa/wp-content/uploads/2025/04/qu-logo-v4.webp" width="350" height="116" loading="lazy" style="margin: 2vh;">
                                 <p id="cv-education-details" class="context" style="width: 50%;">
                                     <strong>Bachelor's Degree in Computer Science</strong>, Qassim University<br>
                                     GPA: 4.88/5 — <span class="CV-subContent">First Class Honor</span><br>
@@ -209,8 +197,8 @@
             <div class="title-bar"></div>
             <div class="window-body">
               <ul class="running-context-menu">
-                <li class="running-context-item pin-app"><img src="./media/images/pinned.png"  width="16" height="16">Pin app to the taskbar</li>
-                <li class="running-context-item close-window"><img src="./media/images/close.png"  width="16" height="16">Close window</li>
+                <li class="running-context-item pin-app"><img src="./media/images/pinned.webp"  width="16" height="16">Pin app to the taskbar</li>
+                <li class="running-context-item close-window"><img src="./media/images/close.webp"  width="16" height="16">Close window</li>
               </ul>
             </div>
           </div>
@@ -247,25 +235,25 @@
           </ul>
     </div>
     <div id="taskBar">
-        <img id="start-menu-button" src="./media/images/start-menu.png">
+        <img id="start-menu-button" src="./media/images/start-menu.webp">
         <div id="pinned-apps">
-            <img class="taskbar-icon" src="./media/images/internet.png">
-            <img class="taskbar-icon" src="./media/images/Explorer.png">
-            <img class="taskbar-icon" src="./media/images/media.png">
+            <img class="taskbar-icon" src="./media/images/internet.webp">
+            <img class="taskbar-icon" src="./media/images/Explorer.webp">
+            <img class="taskbar-icon" src="./media/images/media.webp">
         </div>
 
         <div id="running-apps">
-            <!-- <img class="app-running" src="./media/images/media.png"/>
-            <img class="app-running" src="./media/images/Explorer.png"/>
-            <img class="app-running" src="./media/images/media.png"/> -->
+            <!-- <img class="app-running" src="./media/images/media.webp"/>
+            <img class="app-running" src="./media/images/Explorer.webp"/>
+            <img class="app-running" src="./media/images/media.webp"/> -->
         </div>
         <div id="taskBarRight-section">
             <div id="showDesktop"></div>
             <div id="time"><span id="task-bar-time"></span><br><span id="task-bar-date"></span></div>
             <div id="statusIcons">
                 <img id="audio"  width="16" class="statusIcon" src="./media/images/audio-volume-high-symbolic.svg">
-                <img id="network" class="statusIcon" src="./media/images/gnome-netstatus-idle.png">
-                <img id="firewall" style="width: 1vw;" src="./media/images/indicator-applet.png">
+                <img id="network" class="statusIcon" src="./media/images/gnome-netstatus-idle.webp">
+                <img id="firewall" style="width: 1vw;" src="./media/images/indicator-applet.webp">
                 <div id="tray"><box-icon name='caret-up' color="white" size="16px"></box-icon></div>
             </div>
         </div>
@@ -277,17 +265,17 @@
             <div class="window-body" style="background-color: #ffffff; margin-top: 6px;">
                 <div class="audio" >
                     <div class="audio-icon" style="margin-top: 10px;">
-                        <img src="./media/images/speakers.png" width="32" alt="">
+                        <img src="./media/images/speakers.webp" width="32" alt="">
                     </div>
                     <div class="vertical-range-wrapper">
                         <input type="range" id="volumeControl"
                             class="vertical-range"
                             style="z-index: 1; padding: -100px 50px !important;"
                             min="0" max="100" value="100" step="1" orient="vertical">
-                        <img src="./media/images/audioGuid.png" class="vertical-range"  style="left: 23px !important; z-index: 0;" alt="">
+                        <img src="./media/images/audioGuid.webp" class="vertical-range"  style="left: 23px !important; z-index: 0;" alt="">
                     </div>
                     <div style="padding-block: 15px; margin-top: 10px;">
-                        <img id="audio-changer" src="./media/images/audio-volume-high.png" width="32" alt="">
+                        <img id="audio-changer" src="./media/images/audio-volume-high.webp" width="32" alt="">
                     </div>
                     <div class="audio-mixer">
                         <label for="muteCheckbox">Mixer</label>
@@ -310,34 +298,34 @@
             <hr style="width: 92%;">
             <div id="apps-list">
                 <div class="app-icon crashRun">
-                    <img src="./media/images/Explorer.png">
+                    <img src="./media/images/Explorer.webp">
                     <p>Explorer</p>
                 </div>
                 <div class="app-icon crashRun">
-                    <img src="./media/images/google_Chrome.png">
+                    <img src="./media/images/google_Chrome.webp">
                     <p>Google Chrome</p>
                 </div>
                 <div class="app-icon crashRun">
-                    <img src="./media/images/vscode.png">
+                    <img src="./media/images/vscode.webp">
                     <p>Visual Studio Code</p>
                 </div>
                 <div class="app-icon crashRun">
-                    <img src="./media/images/Notepad_plus_plus.png">
+                    <img src="./media/images/Notepad_plus_plus.webp">
                     <p>Notepad</p>
                 </div>
                 <div class="app-icon crashRun">
-                    <img src="./media/images/paint.png">
+                    <img src="./media/images/paint.webp">
                     <p>Paint</p>
                 </div>
                 <div class="app-icon crashRun">
-                    <img src="./media/images/CalcWin7.png">
+                    <img src="./media/images/CalcWin7.webp">
                     <p>Calculator</p>
                 </div>
             </div>
         </div>
         <div id="setting-list">
-            <img id="profileFrame" src="./media/images/FyaPV.png">
-            <img id="profileImage" src="./media/images/profile.png">
+            <img id="profileFrame" src="./media/images/FyaPV.webp" loading="lazy">
+            <img id="profileImage" src="./media/images/profile.webp" loading="lazy">
             <ul>
                 <li id="cv-name-menu">Osama Alzahrani</li>
                 <li>Documents</li>
@@ -377,7 +365,7 @@
             <div class="window-body" style="background-color: #ffffff;">
                 <div style="padding: 10px;">
                     <div class="app-icon">
-                        <img src="./media/images/media.png" id="crashApp_Icon">
+                        <img src="./media/images/media.webp" id="crashApp_Icon">
                         <div style="display: flex; flex-direction: column;">
                             <span id="crashBlue_title" style="color: #3c649a; font-size: medium;">There's so much room for activities!</span>
                             <p style="font-size: small;">Windows is checking for a solution to the Problem</p>
@@ -397,6 +385,11 @@
 
 
     
+    <script src="./js/jquery-3.7.1.min.js"></script>
+    <script src="./js/jquery-ui.min.js"></script>
+    <script src="../js/boxicons.js"></script>
+    <script src="../js/moment.min.js"></script>
+    <script src="../js/fullcalendar.min.js"></script>
     <script type="text/javascript" src="./js/main.js"></script>
     <script type="text/javascript" src="./js/contextmenu.js"></script>
     <script type="text/javascript" src="./js/taskbar.js"></script>

@@ -8,5 +8,20 @@ export default defineConfig({
         changeOrigin: true,
       }
     }
+  },
+  build: {
+    chunkSizeWarningLimit: 600,
+    rollupOptions: {
+      external: [
+        '/public/js/boxicons.js',
+        '/public/js/bootstrap.bundle.min.js',
+      ],
+      output: {
+        manualChunks: {
+          three: ['three'],
+          tween: ['@tweenjs/tween.js'],
+        }
+      }
+    }
   }
 })

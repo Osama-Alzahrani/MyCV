@@ -257,7 +257,7 @@ async function populateCV() {
                     <i>${project.technologies}</i><br />
                     ${project.description}
                     <p class="creation-date">${project.year}</p>
-                    ${project.previewImage && Object.keys(project.previewImage).length > 0 ? `<img src="${bytesToImageUrl(project.previewImage)}" class="can-preview preview" style="width:100%">` : ''}
+                    ${project.previewImage && Object.keys(project.previewImage).length > 0 ? `<img src="${bytesToImageUrl(project.previewImage)}" class="can-preview preview" loading="lazy" style="width:100%">` : ''}
                     ${project.projectUrl ? `<a href="${project.projectUrl}" target="_blank">View on GitHub</a>` : ''}
                 </div>
             `);

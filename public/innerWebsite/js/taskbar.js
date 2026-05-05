@@ -44,12 +44,12 @@ $("#audio-changer").click(function () {
     prevAudioVolume = volume;
     audioVolumeChange(0);
     $("#volumeControl").val(0);
-    $("#audio-changer").attr("src", "media/images/audio-volume-muted.png");
+    $("#audio-changer").attr("src", "media/images/audio-volume-muted.webp");
     $("#audio").attr("src", "media/images/audio-volume-muted-symbolic.svg");
   } else {
     audioVolumeChange(prevAudioVolume);
     $("#volumeControl").val(prevAudioVolume);
-    $("#audio-changer").attr("src", "media/images/audio-volume-high.png");
+    $("#audio-changer").attr("src", "media/images/audio-volume-high.webp");
     $("#audio").attr("src", "media/images/audio-volume-high-symbolic.svg");
   }
   
@@ -58,17 +58,17 @@ $("#volumeControl").change(function () {
   const volume = $(this).val();
   console.log(volume);
   if (volume <= 3) {
-    $("#audio-changer").attr("src", "media/images/audio-volume-muted.png");
+    $("#audio-changer").attr("src", "media/images/audio-volume-muted.webp");
     $("#audio").attr("src", "media/images/audio-volume-muted-symbolic.svg");
   }else if (volume >= 100) {
-    $("#audio-changer").attr("src", "media/images/audio-volume-high.png");
+    $("#audio-changer").attr("src", "media/images/audio-volume-high.webp");
     $("#audio").attr("src", "media/images/audio-volume-high-symbolic.svg");
   }else if (volume >= 50) {
-    $("#audio-changer").attr("src", "media/images/audio-volume-medium.png");
+    $("#audio-changer").attr("src", "media/images/audio-volume-medium.webp");
     $("#audio").attr("src", "media/images/audio-volume-medium-symbolic.svg");
     
   }else if (volume >= 3) {
-    $("#audio-changer").attr("src", "media/images/audio-volume-low.png");
+    $("#audio-changer").attr("src", "media/images/audio-volume-low.webp");
     $("#audio").attr("src", "media/images/audio-volume-low-symbolic.svg");
     
   }

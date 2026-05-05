@@ -25,7 +25,8 @@ export function createMonitor(scene, options) {
       opacity: 1,
       border: "none",
     })
-    .attr("src", "/innerWebsite/pc.html");
+    .attr("src", "/innerWebsite/pc.html")
+    .on("load", () => options.onLoad("iframe"));
 
   const css3dObject = new CSS3DObject($element[0]);
   css3dObject.position.set(0, 0, 0);
