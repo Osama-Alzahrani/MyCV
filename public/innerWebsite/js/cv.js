@@ -272,6 +272,8 @@ async function populateCV() {
 
     } catch (err) {
         console.error('Failed to load CV data:', err);
+    } finally {
+        window.parent.postMessage('fetchCVReady', '*');
     }
 }
 

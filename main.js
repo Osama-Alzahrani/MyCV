@@ -13,17 +13,17 @@ import { UnrealBloomPass } from "three/addons/postprocessing/UnrealBloomPass.js"
 import { OutputPass } from "three/addons/postprocessing/OutputPass.js";
 import { ShaderPass } from "three/addons/postprocessing/ShaderPass.js";
 
-const isMobile = (() => {
-  const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+const force3d = sessionStorage.getItem('force3d') === '1';
+if (force3d) sessionStorage.removeItem('force3d');
 
-  // Common mobile device identifiers
+const isMobile = (() => {
+  if (force3d) return false;
+  const userAgent = navigator.userAgent || navigator.vendor || window.opera;
   const mobileRegex =
     /Android|iPhone|iPad|iPod|BlackBerry|Opera Mini|IEMobile|Mobile/i;
-
   return mobileRegex.test(userAgent);
 })();
 
-// Usage
 if (isMobile) {
   $("#3D_Area").remove();
   console.log("User is on a mobile device.");
@@ -317,6 +317,9 @@ $("#DeskLight").click(function () {
 $("#UI").click(function () {
   UIClicked = true;
 });
+$("#MobileVersion").click(function () {
+  window.location.href = "/mobile/index.html";
+});
 
 const darkMaterial = new THREE.MeshBasicMaterial({
   color: "white",
@@ -397,24 +400,40 @@ $(document).ready(function () {
 });
 
 let loadedCount = 0;
-const TOTAL_COMPONENTS = 2; // GLTF model + monitor iframe
+const TOTAL_COMPONENTS = 3; // GLTF model + monitor iframe + fetchCV
+
+const statusLabels = {
+  gltf:     "3D scene loaded",
+  iframe:   "Workspace ready",
+  fetchCV:  "Portfolio data loaded",
+};
 
 export function componentLoaded(source) {
   loadedCount++;
   console.log(`[loader] "${source}" ready — ${loadedCount}/${TOTAL_COMPONENTS}`);
+
+  const pct = Math.round((loadedCount / TOTAL_COMPONENTS) * 100);
+  $("#ls-progress-fill").css("width", pct + "%");
+  $("#ls-status").text(statusLabels[source] ?? source);
+
+  if (source === "gltf") {
+    animate();
+  }
+
   if (loadedCount >= TOTAL_COMPONENTS) {
-    console.log("[loader] all components ready, starting animation");
-    startAnimation();
+    console.log("[loader] all components ready, removing loading screen");
+    setTimeout(() => {
+      $("#loading-screen").addClass("fadeout-up-screen");
+      cameraRotating = true;
+    }, 500);
   }
 }
 
-function startAnimation() {
-  animate();
-  setTimeout(() => {
-    $("#loading-screen").addClass("fadeout-up-screen");
-    cameraRotating = true;
-  }, 500);
-}
+window.addEventListener("message", (event) => {
+  if (event.data === "fetchCVReady") {
+    componentLoaded("fetchCV");
+  }
+});
 
 function animate() {
   requestAnimationFrame(animate);

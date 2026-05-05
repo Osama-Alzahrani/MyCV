@@ -73,53 +73,117 @@ body {
   filter: drop-shadow(0 0 5px rgba(96, 165, 250, 0.55));
 }
 
-/* HTML: <div class="loader"></div> */
-.loader {
-  width: 120px;
-  height: 50px;
-  --g1: conic-gradient(from 90deg at left 3px top 3px, #0000 90deg, #fff 0);
-  --g2: conic-gradient(
-    from -90deg at bottom 3px right 3px,
-    #0000 90deg,
-    #fff 0
-  );
-  background: var(--g1), var(--g1), var(--g1), var(--g2), var(--g2), var(--g2);
-  background-position: left, center, right;
-  background-repeat: no-repeat;
-  animation: l9 1s infinite;
+/* Mobile-only UI button — hidden on desktop */
+.ui-mobile-only {
+  display: none;
 }
-@keyframes l9 {
-  0% {
-    background-size: 35px 50%, 35px 50%, 35px 50%;
+
+/* Larger touch targets + show mobile button on small/touch screens */
+@media (max-width: 900px), (pointer: coarse) {
+  #UI {
+    margin: 16px;
+    padding: 14px;
+    gap: 8px;
+    min-width: 300px;
+    border-radius: 24px;
   }
-  25% {
-    background-size: 35px 100%, 35px 50%, 35px 50%;
+
+  .ui-item {
+    padding: 22px 26px;
+    font-size: 26px;
+    gap: 18px;
+    min-height: 80px;
+    border-radius: 16px;
   }
-  50% {
-    background-size: 35px 50%, 35px 100%, 35px 50%;
+
+  .ui-item box-icon {
+    width: 36px;
+    height: 36px;
   }
-  75% {
-    background-size: 35px 50%, 35px 50%, 35px 100%;
+
+  .ui-divider {
+    margin: 4px 14px;
   }
-  100% {
-    background-size: 35px 50%, 35px 50%, 35px 50%;
+
+  .ui-mobile-only {
+    display: flex;
   }
 }
 
-.center {
+#loading-screen {
+  position: absolute;
+  z-index: 3;
+  width: 100%;
+  height: 100%;
+  background: #04080f;
   display: flex;
-  justify-content: center;
   align-items: center;
-  height: 100vh;
-  flex-direction: column;
+  justify-content: center;
 }
 
-.loading-word {
+.ls-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.ls-ring {
+  width: 52px;
+  height: 52px;
+  border: 2px solid rgba(255, 255, 255, 0.07);
+  border-top-color: #60a5fa;
+  border-radius: 50%;
+  animation: ls-spin 0.85s linear infinite;
+  margin-bottom: 28px;
+}
+
+@keyframes ls-spin {
+  to { transform: rotate(360deg); }
+}
+
+.ls-name {
   color: #fff;
-  margin-top: 20px;
-  font-size: 24px;
-  font-weight: bold;
-  font-family: "Courier New", Courier, monospace;
+  font-size: 26px;
+  font-weight: 600;
+  font-family: system-ui, -apple-system, sans-serif;
+  letter-spacing: 0.3px;
+  margin: 0 0 6px;
+}
+
+.ls-subtitle {
+  color: rgba(255, 255, 255, 0.3);
+  font-size: 11px;
+  font-weight: 400;
+  font-family: system-ui, -apple-system, sans-serif;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin: 0 0 32px;
+}
+
+.ls-progress-track {
+  width: 180px;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.07);
+  border-radius: 2px;
+  overflow: hidden;
+  margin-bottom: 14px;
+}
+
+.ls-progress-fill {
+  height: 100%;
+  width: 0%;
+  background: #60a5fa;
+  border-radius: 2px;
+  transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.ls-status {
+  color: rgba(255, 255, 255, 0.25);
+  font-size: 12px;
+  font-family: system-ui, -apple-system, sans-serif;
+  letter-spacing: 0.3px;
+  margin: 0;
 }
 
 /* @-webkit-keyframes fadeOutUp {
@@ -134,30 +198,13 @@ body {
   }
 } */
 
-#loading-screen {
-  background-color: #003049;
-  z-index: 3;
-  height: 100%;
-  width: 100%;
-  position: absolute;
-}
-
 @keyframes fadeOutUp {
-  from {
-    opacity: 1;
-    bottom: 0px;
-    position: absolute;
-  }
-
-  to {
-    opacity: 0;
-    bottom: 1000px;
-    position: absolute;
-  }
+  from { opacity: 1; }
+  to   { opacity: 0; pointer-events: none; }
 }
+
 .fadeout-up-screen {
-  animation: fadeOutUp 1s linear 0.5s forwards;
-  -webkit-animation: fadeOutUp 1s linear 0.5s forwards;
+  animation: fadeOutUp 0.8s ease forwards;
 }
 
 #mobileWarning {
@@ -215,3 +262,4 @@ body {
 #continueButton:hover {
   background-color: #cc0000;
 }
+
